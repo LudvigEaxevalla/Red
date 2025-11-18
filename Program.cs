@@ -151,6 +151,7 @@ while (!hasChosenFoodFirst)
     playerSpeed += 5;
     playerAccuracy += 10;
     Console.WriteLine("You feel more energiezed than before and your journey continues!");
+    Console.ReadKey();
     hasChosenFoodFirst = true;
     break;
 
@@ -159,11 +160,13 @@ while (!hasChosenFoodFirst)
     playerSpeed -= 5;
     playerAccuracy -= 10;
     Console.WriteLine("You feel.... not so good... That probably wasn't a good idea but you continue");
+    Console.ReadKey();
     hasChosenFoodFirst = true;
     break;
 
     case 3:
     Console.WriteLine("You decide to not eat and continue your journey...");
+    Console.ReadKey();
     hasChosenFoodFirst = true;
     break;
 
@@ -176,3 +179,6 @@ while (!hasChosenFoodFirst)
 //--WOLF ENCOUNTER - FIGHT--//
 Console.ForegroundColor = ConsoleColor.White;
 
+
+Console.WriteLine("Next Level");
+Console.ReadKey();
