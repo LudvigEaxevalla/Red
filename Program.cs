@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http.Headers;
 
 //Console
 Console.ForegroundColor = ConsoleColor.Red;
@@ -7,18 +8,21 @@ Console.ForegroundColor = ConsoleColor.Red;
 
 Random rnd = new Random();
 int playerHealth = 100;
-int playerDamage = rnd.Next(1,5);
+int pMinDamage = 1;
+int pMaxDamage = 5;
+int playerDamage = rnd.Next(pMinDamage,pMaxDamage);
 int playerCrit = rnd.Next(10,15);
 double playerSpeed = 20;
 double playerWeight = 0;
 int playerAccuracy = 80;
-int battleChoice = 0;
 string[] currentWeapon = {"Pocket Knife", "Hammer", "Kitchen Knife", "AK47"};
 
 //Wolf var
 
 int wolfHealth = 500;
-int wolfDamage = rnd.Next(20,40);
+int wMinDmg = 20;
+int wMaxDmg = 40;
+int wolfDamage = rnd.Next(wMinDmg,wMaxDmg);
 int wolfSpeed = 50;
 int wolfAccuracy = 20;
 
@@ -63,7 +67,7 @@ bool battle = false;
 bool canRun = false;
 bool playersTurn = false;
 bool wolfsTurn = false;
-
+int battleChoice = 0;
 
 
 
@@ -117,7 +121,8 @@ if (beginningWeaponChoice <1 || beginningWeaponChoice > 2)
 
 else if (beginningWeaponChoice == 1)
 {
-    playerDamage += pocketKnifeDamage;
+    pMinDamage += pocketKnifeDamage;
+    pMaxDamage += pocketKnifeDamage;
     playerWeight += pocketKnifeWeight;
     playerSpeed -= playerWeight;
     hasChosenbeginningWeapon = true;
@@ -125,7 +130,8 @@ else if (beginningWeaponChoice == 1)
 
 else if (beginningWeaponChoice == 2)
 {
-    playerDamage += hammerDamage;
+    pMinDamage += pocketKnifeDamage;
+    pMaxDamage += pocketKnifeDamage;
     playerWeight += hammerWeight;
     playerSpeed -= playerWeight;
     hasChosenbeginningWeapon = true;
@@ -209,8 +215,11 @@ while (battle)
 
     while (playersTurn)
     {
+        playerDamage = rnd.Next(pMinDamage, pMaxDamage);
+        hitCheck = rnd.Next(1,100);
         Console.WriteLine("Use your " + currentWeapon + " (1)");
         Console.WriteLine("Try to run (2)");
+        battleChoice = int.Parse(Console.ReadLine());
 
         switch(battleChoice){
 
@@ -224,8 +233,13 @@ while (battle)
                         battle = false;
                         unlikelyEnding = true;
                     }
-
                     Console.WriteLine("You succesfully hit the wolf with your " + currentWeapon);
+                    Console.WriteLine("Player min dmg: " + playerDamage);
+                    Console.WriteLine("Player min dmg: " + pMinDamage);
+                    Console.WriteLine("Player max dmg: " + pMaxDamage);
+                    Console.WriteLine("Player health: " + playerHealth);
+                    Console.WriteLine("Player acc: " + playerAccuracy);
+                    Console.WriteLine("Hitcheck: " + hitCheck);
                     Console.ReadKey();
                     playersTurn = false;
                     wolfsTurn = true;
@@ -263,6 +277,8 @@ while (battle)
 
         while (wolfsTurn)
         {
+            wolfDamage = rnd.Next(wMinDmg, wMaxDmg);
+            hitCheck = rnd.Next(1,100);
             if (wolfAccuracy >= hitCheck)
             {
                 playerHealth -= wolfDamage;
@@ -295,3 +311,4 @@ while (battle)
     }
 }
 
+Console.WriteLine("Next Level");
