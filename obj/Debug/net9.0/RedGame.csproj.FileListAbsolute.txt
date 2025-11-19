@@ -26,31 +26,60 @@
 /home/leinarsson/Documents/Programmering/RedGame/obj/Debug/net9.0/RedGame.pdb
 /home/leinarsson/Documents/Programmering/RedGame/obj/Debug/net9.0/RedGame.genruntimeconfig.cache
 /home/leinarsson/Documents/Programmering/RedGame/obj/Debug/net9.0/ref/RedGame.dll
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\bin\Debug\net9.0\appsettings.Development.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\bin\Debug\net9.0\appsettings.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\bin\Debug\net9.0\RedGame.staticwebassets.endpoints.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\bin\Debug\net9.0\RedGame.exe
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\bin\Debug\net9.0\RedGame.deps.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\bin\Debug\net9.0\RedGame.runtimeconfig.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\bin\Debug\net9.0\RedGame.dll
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\bin\Debug\net9.0\RedGame.pdb
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\rpswa.dswa.cache.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.AssemblyInfoInputs.cache
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.AssemblyInfo.cs
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.csproj.CoreCompileInputs.cache
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.sourcelink.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\rjimswa.dswa.cache.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\scopedcss\bundle\RedGame.styles.css
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\staticwebassets.build.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\staticwebassets.build.json.cache
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\staticwebassets.development.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.dll
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\refint\RedGame.dll
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.pdb
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\RedGame.genruntimeconfig.cache
-C:\Users\Ludvig\OneDrive\Documents\Skola\Programmering Grund\Red\obj\Debug\net9.0\ref\RedGame.dll
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/bin/Debug/net9.0/appsettings.Development.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/bin/Debug/net9.0/appsettings.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/bin/Debug/net9.0/RedGame.staticwebassets.endpoints.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/bin/Debug/net9.0/RedGame.exe
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/bin/Debug/net9.0/RedGame.deps.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/bin/Debug/net9.0/RedGame.runtimeconfig.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/bin/Debug/net9.0/RedGame.dll
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/bin/Debug/net9.0/RedGame.pdb
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/rpswa.dswa.cache.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.AssemblyInfoInputs.cache
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.AssemblyInfo.cs
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.csproj.CoreCompileInputs.cache
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.MvcApplicationPartsAssemblyInfo.cache
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.sourcelink.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/rjimswa.dswa.cache.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/scopedcss/bundle/RedGame.styles.css
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/staticwebassets.build.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/staticwebassets.build.json.cache
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/staticwebassets.development.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/staticwebassets.build.endpoints.json
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.dll
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/refint/RedGame.dll
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.pdb
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/RedGame.genruntimeconfig.cache
+C:/Users/Ludvig/OneDrive/Documents/Skola/Programmering Grund/Red/obj/Debug/net9.0/ref/RedGame.dll
+/home/leinarsson/Documents/Programmering/Red/bin/Debug/net9.0/appsettings.Development.json
+/home/leinarsson/Documents/Programmering/Red/bin/Debug/net9.0/appsettings.json
+/home/leinarsson/Documents/Programmering/Red/bin/Debug/net9.0/RedGame.staticwebassets.endpoints.json
+/home/leinarsson/Documents/Programmering/Red/bin/Debug/net9.0/RedGame
+/home/leinarsson/Documents/Programmering/Red/bin/Debug/net9.0/RedGame.deps.json
+/home/leinarsson/Documents/Programmering/Red/bin/Debug/net9.0/RedGame.runtimeconfig.json
+/home/leinarsson/Documents/Programmering/Red/bin/Debug/net9.0/RedGame.dll
+/home/leinarsson/Documents/Programmering/Red/bin/Debug/net9.0/RedGame.pdb
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.GeneratedMSBuildEditorConfig.editorconfig
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.AssemblyInfoInputs.cache
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.AssemblyInfo.cs
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.csproj.CoreCompileInputs.cache
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.MvcApplicationPartsAssemblyInfo.cache
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.sourcelink.json
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/scopedcss/bundle/RedGame.styles.css
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets.build.json
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets.development.json
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets.build.endpoints.json
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets/msbuild.RedGame.Microsoft.AspNetCore.StaticWebAssets.props
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets/msbuild.RedGame.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets/msbuild.build.RedGame.props
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets/msbuild.buildMultiTargeting.RedGame.props
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets/msbuild.buildTransitive.RedGame.props
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/staticwebassets.pack.json
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.dll
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/refint/RedGame.dll
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.pdb
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/RedGame.genruntimeconfig.cache
+/home/leinarsson/Documents/Programmering/Red/obj/Debug/net9.0/ref/RedGame.dll
