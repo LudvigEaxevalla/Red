@@ -12,6 +12,8 @@ int playerCrit = rnd.Next(10,15);
 double playerSpeed = 20;
 double playerWeight = 0;
 int playerAccuracy = 80;
+int battleChoice = 0;
+string[] currentWeapon = {"Pocket Knife", "Hammer", "Kitchen Knife", "AK47"};
 
 //Wolf var
 
@@ -55,6 +57,12 @@ bool isCarryingGrandmasFood = false;
 bool unlikelyEnding = false;
 bool goodEnding = false;
 bool sadEnding = false;
+
+//Battle stuff
+bool battle = false;
+bool canRun = false;
+bool playersTurn = false;
+bool wolfsTurn = false;
 
 
 
@@ -186,4 +194,104 @@ Console.WriteLine("Next Level");
 Console.ReadKey();
 
 //BRANCH BALANCE//
+
+battle = true;
+
+while (battle)
+{
+    Console.WriteLine("Battle");
+    Console.ReadKey();
+
+    if (!playersTurn && !wolfsTurn)
+    {
+        playersTurn = true;
+    }
+
+    while (playersTurn)
+    {
+        Console.WriteLine("Use your " + currentWeapon + " (1)");
+        Console.WriteLine("Try to run (2)");
+
+        switch(battleChoice){
+
+            case 1:
+            if (playerAccuracy >= hitCheck)
+                {
+                    wolfHealth -= playerDamage;
+                    wolfSpeed -= playerDamage;
+                        if (wolfHealth <= 0)
+                    {
+                        battle = false;
+                        unlikelyEnding = true;
+                    }
+
+                    Console.WriteLine("You succesfully hit the wolf with your " + currentWeapon);
+                    Console.ReadKey();
+                    playersTurn = false;
+                    wolfsTurn = true;
+                }
+                else
+                {
+                    Console.WriteLine("You missed!");
+                    Console.ReadKey();
+                    playersTurn = false;
+                    wolfsTurn = true;
+                }
+            break;
+
+            case 2:
+            if (playerSpeed < wolfSpeed)
+                {
+                    Console.WriteLine("You tried to run but the wolf is just to fast for you");
+                    Console.ReadKey();
+                    playersTurn = false;
+                    wolfsTurn = true;
+                }
+
+                else
+                {
+                    Console.WriteLine("You succesfully ran away from the wolf");
+                    battle = false;
+                }
+            break;
+
+            default:
+            Console.WriteLine("Try again");
+            break;
+            
+        }
+
+        while (wolfsTurn)
+        {
+            if (wolfAccuracy >= hitCheck)
+            {
+                playerHealth -= wolfDamage;
+                Console.WriteLine("The wolf attacked you.... it hurts");
+                Console.ReadKey();
+                wolfsTurn = false;
+                playersTurn = true;
+            }
+
+            else
+            {
+                Console.WriteLine("You managed to dodge the wolfs attack!");
+                Console.ReadKey();
+                wolfsTurn = false;
+                playersTurn = true;
+            }
+        }
+    }
+
+    if (canRun || unlikelyEnding)
+    {
+        battle = false;
+    }
+
+    if (playerHealth <= 0)
+    {
+        Console.WriteLine("The wolf has killed you");
+        Console.ReadKey();
+        battle = false;
+    }
+}
 
