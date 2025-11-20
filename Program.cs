@@ -27,15 +27,15 @@ int wolfSpeed = 50;
 int wolfAccuracy = 20;
 
 //Game
-int hitCheck= rnd.Next(1,100);
+int dice= rnd.Next(1,100);
 
 //Grandma var
 
 int grandmaHealth = 3;
 
 //Weapon damage
-int pocketKnifeDamage = 2;
-int hammerDamage = 5;
+int pocketKnifeDamage = 5;
+int hammerDamage = 15;
 int ak47Damage = 1000;
 
 //Weapon Choices
@@ -49,7 +49,7 @@ bool hasChosenFoodFirst = false;
 bool hasChosenFoodSecond = false;
 
 //Weigth stuff
-double pocketKnifeWeight = 1.5;
+double pocketKnifeWeight = 2;
 double hammerWeight = 5;
 double grandmaFoodWeight = 5;
 
@@ -68,6 +68,8 @@ bool canRun = false;
 bool playersTurn = false;
 bool wolfsTurn = false;
 int battleChoice = 0;
+
+double runningOdds = 0;
 
 
 
@@ -103,6 +105,23 @@ Console.WriteLine("\n\n-- Just a bunch of text here that will welcome the player
 Console.WriteLine("Your grandma is sick blah blah blah bring her food blah blah look out for dangers.");
 Console.WriteLine("Choose between a pocket knife and a hammer before you leave, just in case. --");
 
+isCarryingGrandmasFood = true;
+
+if (isCarryingGrandmasFood)
+{
+    playerWeight += grandmaFoodWeight;
+}
+else
+{
+    playerWeight -= grandmaFoodWeight;
+}
+
+runningOdds -= playerWeight;
+
+
+Console.WriteLine("\n\n\n\nR: " + runningOdds);
+Console.WriteLine("W:" + playerWeight);
+
 
 //--START OF GAME -- CHOOSE STARTING WEAPON--//
 
@@ -110,7 +129,6 @@ while (!hasChosenbeginningWeapon)
 {
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("\n   What do you choose? \n1. Pocket Knife\n2. Hammer");
-    isCarryingGrandmasFood = true;
 
 beginningWeaponChoice = int.Parse(Console.ReadLine());
 
@@ -124,16 +142,18 @@ else if (beginningWeaponChoice == 1)
     pMinDamage += pocketKnifeDamage;
     pMaxDamage += pocketKnifeDamage;
     playerWeight += pocketKnifeWeight;
-    playerSpeed -= playerWeight;
+    runningOdds -= playerWeight;
+    //playerSpeed -= playerWeight;
     hasChosenbeginningWeapon = true;
 }
 
 else if (beginningWeaponChoice == 2)
 {
-    pMinDamage += pocketKnifeDamage;
-    pMaxDamage += pocketKnifeDamage;
+    pMinDamage += hammerDamage;
+    pMaxDamage += hammerDamage;
     playerWeight += hammerWeight;
-    playerSpeed -= playerWeight;
+    runningOdds -= playerWeight;
+    //playerSpeed -= playerWeight;
     hasChosenbeginningWeapon = true;
 }
 
@@ -152,6 +172,8 @@ Console.ForegroundColor = ConsoleColor.White;
 //--FOREST PART 1--//
 
 Console.WriteLine("-- You are now walking in the forest and find blueberries and a red mysterious looking mushrooom --");
+Console.WriteLine("\n\n\n\nR: " + runningOdds);
+Console.WriteLine("W:" + playerWeight);
 Console.ReadKey();
 
 
@@ -216,7 +238,8 @@ while (battle)
     while (playersTurn)
     {
         playerDamage = rnd.Next(pMinDamage, pMaxDamage);
-        hitCheck = rnd.Next(1,100);
+        dice = rnd.Next(1,100);
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Use your " + currentWeapon + " (1)");
         Console.WriteLine("Try to run (2)");
         battleChoice = int.Parse(Console.ReadLine());
@@ -224,28 +247,34 @@ while (battle)
         switch(battleChoice){
 
             case 1:
-            if (playerAccuracy >= hitCheck)
+            if (playerAccuracy >= dice)
                 {
                     wolfHealth -= playerDamage;
-                    wolfSpeed -= playerDamage;
+                   // wolfSpeed -= playerDamage;
+                    runningOdds += playerDamage;
                         if (wolfHealth <= 0)
                     {
+                        playersTurn = false;
+                        wolfsTurn = false;
                         battle = false;
                         unlikelyEnding = true;
                     }
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("You succesfully hit the wolf with your " + currentWeapon);
-                    Console.WriteLine("Player min dmg: " + playerDamage);
+                    Console.WriteLine("Player dmg: " + playerDamage);
                     Console.WriteLine("Player min dmg: " + pMinDamage);
                     Console.WriteLine("Player max dmg: " + pMaxDamage);
+                    Console.WriteLine("Running oods: " + runningOdds);
                     Console.WriteLine("Player health: " + playerHealth);
                     Console.WriteLine("Player acc: " + playerAccuracy);
-                    Console.WriteLine("Hitcheck: " + hitCheck);
+                    Console.WriteLine("Dice: " + dice);
                     Console.ReadKey();
                     playersTurn = false;
                     wolfsTurn = true;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You missed!");
                     Console.ReadKey();
                     playersTurn = false;
@@ -254,8 +283,9 @@ while (battle)
             break;
 
             case 2:
-            if (playerSpeed < wolfSpeed)
+            if (runningOdds < dice)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You tried to run but the wolf is just to fast for you");
                     Console.ReadKey();
                     playersTurn = false;
@@ -264,12 +294,17 @@ while (battle)
 
                 else
                 {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("You succesfully ran away from the wolf");
                     battle = false;
+                    playersTurn = false;
+                    wolfsTurn = false;
                 }
             break;
 
             default:
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Try again");
             break;
             
@@ -278,9 +313,10 @@ while (battle)
         while (wolfsTurn)
         {
             wolfDamage = rnd.Next(wMinDmg, wMaxDmg);
-            hitCheck = rnd.Next(1,100);
-            if (wolfAccuracy >= hitCheck)
+            dice = rnd.Next(1,100);
+            if (wolfAccuracy >= dice)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 playerHealth -= wolfDamage;
                 Console.WriteLine("The wolf attacked you.... it hurts");
                 Console.ReadKey();
@@ -290,6 +326,7 @@ while (battle)
 
             else
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You managed to dodge the wolfs attack!");
                 Console.ReadKey();
                 wolfsTurn = false;
@@ -305,10 +342,16 @@ while (battle)
 
     if (playerHealth <= 0)
     {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("The wolf has killed you");
         Console.ReadKey();
+        playersTurn = false;
+        wolfsTurn = false;
         battle = false;
     }
 }
 
+Console.Clear();
+Console.ForegroundColor = ConsoleColor.White;
 Console.WriteLine("Next Level");
