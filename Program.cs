@@ -24,7 +24,7 @@ int wMinDmg = 20;
 int wMaxDmg = 40;
 int wolfDamage = rnd.Next(wMinDmg,wMaxDmg);
 int wolfSpeed = 50;
-int wolfAccuracy = 100;
+int wolfAccuracy = 20;
 
 //Game
 int dice= rnd.Next(1,100);
@@ -104,6 +104,7 @@ Console.ForegroundColor = ConsoleColor.White;
 Console.WriteLine("\n\n-- Just a bunch of text here that will welcome the player and set up the story.");
 Console.WriteLine("Your grandma is sick blah blah blah bring her food blah blah look out for dangers.");
 Console.WriteLine("Choose between a pocket knife and a hammer before you leave, just in case. --");
+Console.WriteLine("\n --IF YOU CAN SEE THIS IT IS THE CORRECT VERSION--");
 
 isCarryingGrandmasFood = true;
 
@@ -242,11 +243,15 @@ while (battle)
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Use your " + currentWeapon + " (1)");
         Console.WriteLine("Try to run (2)");
+        Console.WriteLine("Your chance of running is currently " + runningOdds + "%");
+        Console.WriteLine(dice);
         battleChoice = int.Parse(Console.ReadLine());
 
         switch(battleChoice){
 
             case 1:
+            dice = rnd.Next(1,100);
+
             if (playerAccuracy >= dice)
                 {
                     wolfHealth -= playerDamage;
@@ -276,6 +281,8 @@ while (battle)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You missed!");
+                    Console.WriteLine(dice);
+                    Console.WriteLine(playerAccuracy);
                     Console.ReadKey();
                     playersTurn = false;
                     wolfsTurn = true;
@@ -283,9 +290,12 @@ while (battle)
             break;
 
             case 2:
+            dice = rnd.Next(1,100);
+
             if (runningOdds < dice)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Dice: " + dice);
                     Console.WriteLine("You tried to run but the wolf is just to fast for you");
                     Console.ReadKey();
                     playersTurn = false;
