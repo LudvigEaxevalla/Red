@@ -24,7 +24,7 @@ int wMinDmg = 20;
 int wMaxDmg = 40;
 int wolfDamage = rnd.Next(wMinDmg,wMaxDmg);
 int wolfSpeed = 50;
-int wolfAccuracy = 20;
+int wolfAccuracy = 100;
 
 //Game
 int dice= rnd.Next(1,100);
@@ -310,6 +310,17 @@ while (battle)
             
         }
 
+        if (playerHealth <= 0)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("The wolf has killed you");
+            Console.ReadKey();
+            playersTurn = false;
+            wolfsTurn = false;
+            battle = false;
+        }
+
         while (wolfsTurn)
         {
             wolfDamage = rnd.Next(wMinDmg, wMaxDmg);
@@ -322,6 +333,8 @@ while (battle)
                 Console.ReadKey();
                 wolfsTurn = false;
                 playersTurn = true;
+
+            
             }
 
             else
@@ -340,16 +353,6 @@ while (battle)
         battle = false;
     }
 
-    if (playerHealth <= 0)
-    {
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("The wolf has killed you");
-        Console.ReadKey();
-        playersTurn = false;
-        wolfsTurn = false;
-        battle = false;
-    }
 }
 
 Console.Clear();
