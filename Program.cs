@@ -104,7 +104,7 @@ Console.ForegroundColor = ConsoleColor.White;
 Console.WriteLine("\n\n-- Just a bunch of text here that will welcome the player and set up the story.");
 Console.WriteLine("Your grandma is sick blah blah blah bring her food blah blah look out for dangers.");
 Console.WriteLine("Choose between a pocket knife and a hammer before you leave, just in case. --");
-Console.WriteLine("\n --IF YOU CAN SEE THIS IT IS THE CORRECT VERSION--");
+
 
 isCarryingGrandmasFood = true;
 
@@ -290,7 +290,17 @@ while (battle)
             break;
 
             case 2:
-            dice = rnd.Next(1,100);
+            dice = rnd.Next(1,101);
+               
+                for (int i = 100; i >= 1; i--) 
+                 {
+                            Console.Write($"\r{i}");
+                            Thread.Sleep(50);
+                            if (i == dice || i == runningOdds)
+                    {
+                        break;
+                    }
+                 } 
 
             if (runningOdds < dice)
                 {
@@ -302,11 +312,12 @@ while (battle)
                     wolfsTurn = true;
                 }
 
-                else
+                else if (runningOdds >= dice)
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("You succesfully ran away from the wolf");
+                    Console.ReadKey();
                     battle = false;
                     playersTurn = false;
                     wolfsTurn = false;
