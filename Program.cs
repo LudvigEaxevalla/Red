@@ -14,8 +14,9 @@ int playerDamage = rnd.Next(pMinDamage,pMaxDamage);
 int playerCrit = rnd.Next(10,15);
 double playerSpeed = 20;
 double playerWeight = 0;
-int playerAccuracy = 80;
+int playerAccuracy = 75;
 string[] currentWeapon = {"Pocket Knife", "Hammer", "Kitchen Knife", "AK47"};
+string selectedWeapon = "";
 
 //Wolf var
 
@@ -101,7 +102,7 @@ Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("|_|  \\_\\______|_____/ ");
 
 Console.WriteLine("\nA text adventure game");
-Console.ForegroundColor = ConsoleColor.Yellow;
+Console.ForegroundColor = ConsoleColor.DarkYellow;
 
 while (!hasChosenTip)
 {        
@@ -134,7 +135,7 @@ while (!hasChosenTip)
 
 Console.Clear();
                        
-Console.ForegroundColor = ConsoleColor.White;
+Console.ResetColor();
 
 Console.WriteLine("\n\n-- Just a bunch of text here that will welcome the player and set up the story.");
 Console.WriteLine("Your grandma is sick blah blah blah bring her food blah blah look out for dangers.");
@@ -170,6 +171,7 @@ if (beginningWeaponChoice <1 || beginningWeaponChoice > 2)
 
 else if (beginningWeaponChoice == 1)
 {
+    selectedWeapon = currentWeapon[0];
     pMinDamage += pocketKnifeDamage;
     pMaxDamage += pocketKnifeDamage;
     playerWeight += pocketKnifeWeight;
@@ -180,6 +182,7 @@ else if (beginningWeaponChoice == 1)
 
 else if (beginningWeaponChoice == 2)
 {
+    selectedWeapon = currentWeapon[1];
     pMinDamage += hammerDamage;
     pMaxDamage += hammerDamage;
     playerWeight += hammerWeight;
@@ -202,9 +205,21 @@ Console.ForegroundColor = ConsoleColor.White;
 
 //--FOREST PART 1--//
 
-Console.WriteLine("-- You are now walking in the forest and find blueberries and a red mysterious looking mushrooom --");
-Console.WriteLine("\n\n\n\nR: " + runningOdds);
-Console.WriteLine("W:" + playerWeight);
+Console.Write("You walk for a bit and stop where you know ");
+Console.ForegroundColor = ConsoleColor.DarkBlue;
+Console.Write("blueberries ");
+Console.ResetColor();
+Console.Write("grow");
+Console.Write("\nYou also notice some ");
+Console.ForegroundColor = ConsoleColor.DarkRed;
+Console.Write("mysterious red mushrooms ");
+Console.ResetColor();
+Console.Write("ahead");
+
+Console.WriteLine("\n\nYou know nothing about the mushrooms but they sure look yummy!");
+
+
+
 Console.ReadKey();
 
 
@@ -213,6 +228,7 @@ while (!hasChosenFoodFirst)
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("Do you eat the blueberries(1), the red mushroom(2) or do you continue without eating(3)?");
     foodChoice = int.Parse(Console.ReadLine());
+    Console.Clear();
     switch (foodChoice)
 {
     case 1:
@@ -222,6 +238,7 @@ while (!hasChosenFoodFirst)
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("You feel more energiezed than before and your journey continues!");
     Console.ReadKey();
+    Console.Clear();
     hasChosenFoodFirst = true;
     break;
 
@@ -232,6 +249,7 @@ while (!hasChosenFoodFirst)
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("You feel.... not so good... That probably wasn't a good idea but you continue");
     Console.ReadKey();
+    Console.Clear();
     hasChosenFoodFirst = true;
     break;
 
@@ -239,6 +257,7 @@ while (!hasChosenFoodFirst)
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("You decide to not eat and continue your journey...");
     Console.ReadKey();
+    Console.Clear();
     hasChosenFoodFirst = true;
     break;
 
@@ -314,6 +333,8 @@ while (battle)
     }
 
     while (playersTurn && !playerDeath)
+
+
     {
 
             if (playerHealth <= 0)
@@ -322,14 +343,24 @@ while (battle)
         }
         else if (playerHealth > 0)
         {
-              playerDamage = rnd.Next(pMinDamage, pMaxDamage);
+        playerDamage = rnd.Next(pMinDamage, pMaxDamage);
         dice = rnd.Next(1,100);
+        Console.Clear();
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("Use your " + currentWeapon + " (1)");
+        Console.WriteLine("\n\n");
+        Console.WriteLine("Use your " + selectedWeapon + " (1)");
         Console.WriteLine("Try to run (2)");
-        Console.WriteLine("Your chance of running is currently " + runningOdds + "%");
-        Console.WriteLine(dice);
+
+        if (showTips)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n\n");
+            Console.WriteLine("Your chances of running away: " + runningOdds);
+            Console.WriteLine("Your Health: " + playerHealth);
+            Console.WriteLine("Wolfs Health: " + wolfHealth);  
+        }
         battleChoice = int.Parse(Console.ReadLine());
+
 
         switch(battleChoice){
 
@@ -349,13 +380,7 @@ while (battle)
                         unlikelyEnding = true;
                     }
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("You succesfully hit the wolf with your " + currentWeapon);
-                    Console.WriteLine("Player dmg: " + playerDamage);
-                    Console.WriteLine("Player min dmg: " + pMinDamage);
-                    Console.WriteLine("Player max dmg: " + pMaxDamage);
-                    Console.WriteLine("Running oods: " + runningOdds);
-                    Console.WriteLine("Player health: " + playerHealth);
-                    Console.WriteLine("Player acc: " + playerAccuracy);
+                    Console.WriteLine("You succesfully hit the wolf with your " + selectedWeapon);
                     Console.WriteLine("Your chances of running increses");
                     Console.ReadKey();
                     playersTurn = false;
@@ -378,7 +403,7 @@ while (battle)
             dice = rnd.Next(1,100);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("How far you have to run: ");
+            Console.WriteLine("Distance to run: ");
                 for (int i = 0; i <= dice; i++) 
                  {
                             
@@ -393,7 +418,7 @@ while (battle)
                  Console.ReadKey();
 
                  Console.ForegroundColor = ConsoleColor.Green;
-                 Console.WriteLine("How far you got: ");
+                 Console.WriteLine("Your distance: ");
 
                 for (int i = 0; i <= runningOdds; i++)
                 {
@@ -449,7 +474,8 @@ while (battle)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 playerHealth -= wolfDamage;
-                runningOdds -= 10;
+                wolfAccuracy++;
+                runningOdds -= rnd.Next(5,15);
                 Console.WriteLine("The wolf attacked you.... it hurts");
                 Console.WriteLine("Your chances of running away decreses");
                 Console.ReadKey();
@@ -481,9 +507,8 @@ while (battle)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("The wolf has killed you");
+            Console.WriteLine("The wolf has killed you\nGame Over");
             Console.ReadKey();
-            Environment.Exit(0);
 
         }
 
