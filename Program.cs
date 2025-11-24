@@ -1,15 +1,15 @@
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 
-//Console
-Console.ForegroundColor = ConsoleColor.Red;
 
 //Player var
 
 Random rnd = new Random();
 int playerHealth = 100;
 int pMinDamage = 1;
-int pMaxDamage = 5;
+int pMaxDamage = 3;
 int playerDamage = rnd.Next(pMinDamage,pMaxDamage);
 int playerCrit = rnd.Next(10,15);
 double playerSpeed = 20;
@@ -28,6 +28,9 @@ int wolfAccuracy = 20;
 
 //Game
 int dice= rnd.Next(1,100);
+bool showTips = false;
+string choice = "";
+bool hasChosenTip = false;
 
 //Grandma var
 
@@ -35,7 +38,7 @@ int grandmaHealth = 3;
 
 //Weapon damage
 int pocketKnifeDamage = 5;
-int hammerDamage = 15;
+int hammerDamage = 8;
 int ak47Damage = 1000;
 
 //Weapon Choices
@@ -87,6 +90,7 @@ double runningOdds = 0;
 
 
 Console.Clear();
+Console.ForegroundColor = ConsoleColor.Red;
 
 
     Console.WriteLine(" _____  ______ _____");  
@@ -97,7 +101,38 @@ Console.Clear();
     Console.WriteLine("|_|  \\_\\______|_____/ ");
 
 Console.WriteLine("\nA text adventure game");
-                       
+Console.ForegroundColor = ConsoleColor.Yellow;
+
+while (!hasChosenTip)
+{        
+    Console.WriteLine("\n\n Would you like information information how the game works from time to time?");
+    Console.WriteLine("y/n");
+    choice = Console.ReadLine();
+
+        if (choice == "y" || choice == "Y")
+        {
+            showTips = true;
+            Console.WriteLine("More information will be shown");
+            Console.WriteLine("Press ENTER to continue");
+            hasChosenTip = true;
+            Console.ReadKey();
+        }
+        else if (choice == "n" || choice == "N")
+        {
+            Console.WriteLine("More information will NOT be shown");
+            Console.WriteLine("Press ENTER to continue");
+            hasChosenTip = true;
+            Console.ReadKey();
+            
+        }
+        else        
+        {
+            Console.WriteLine("Unvalid input - please type y or n");
+        }
+
+}
+
+Console.Clear();
                        
 Console.ForegroundColor = ConsoleColor.White;
 
@@ -118,11 +153,6 @@ else
 }
 
 runningOdds -= playerWeight;
-
-
-Console.WriteLine("\n\n\n\nR: " + runningOdds);
-Console.WriteLine("W:" + playerWeight);
-
 
 //--START OF GAME -- CHOOSE STARTING WEAPON--//
 
@@ -189,6 +219,7 @@ while (!hasChosenFoodFirst)
     playerHealth += 20;
     playerSpeed += 5;
     playerAccuracy += 10;
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("You feel more energiezed than before and your journey continues!");
     Console.ReadKey();
     hasChosenFoodFirst = true;
@@ -198,12 +229,14 @@ while (!hasChosenFoodFirst)
     playerHealth -= 20;
     playerSpeed -= 5;
     playerAccuracy -= 10;
+    Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("You feel.... not so good... That probably wasn't a good idea but you continue");
     Console.ReadKey();
     hasChosenFoodFirst = true;
     break;
 
     case 3:
+    Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("You decide to not eat and continue your journey...");
     Console.ReadKey();
     hasChosenFoodFirst = true;
@@ -219,7 +252,13 @@ while (!hasChosenFoodFirst)
 Console.ForegroundColor = ConsoleColor.White;
 
 
-Console.WriteLine("Next Level");
+Console.WriteLine("You walk without a care in the world for a while but as you get deeper into the woods,");
+Console.WriteLine("you realize how dark it gets when the trees gets closer and the path narrows.");
+Console.WriteLine("blah blah blah blah ------");
+Console.WriteLine("Something approches -- it's a wolf wondering who you are and where you're going");
+Console.ForegroundColor = ConsoleColor.Red;
+Console.WriteLine("You have no choice but to fight the wolf");
+
 Console.ReadKey();
 
 
@@ -228,17 +267,62 @@ battle = true;
 
 while (battle)
 {
-    Console.WriteLine("Battle");
-    Console.ReadKey();
+    if (showTips)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("-- You always have the first turn in battle and you have one of two options each turn. ");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("1. Attack the wolf with the weapon you choose at the beginning of the game. \n");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("There is always a chance that you will miss the wolf when attacking in wich case it will be the wolfs turn");
+        Console.WriteLine("If you hit the wolf, the wolf will become a bit slower and your chances of running away increses \n");
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("2. You can try to run away from the wolf. \n");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("At first you will have 0 chanses of running from the wolf. It only increases when you succesfully hit the wolf");
+        Console.WriteLine("When you try to run a number will show how long you have to go. This number is always between 1 and 100");
+        Console.WriteLine("After - your distance is shown. If your distance is the same or more than the first number, you will successfully run from the wolf");
+        Console.WriteLine("If you fail to run, it will be the wolfs turn --");
+        Console.WriteLine("\n");
+        Console.ReadKey();
+        Console.Clear();
+        Console.WriteLine("-- The wolf only has one move: Attack");
+        Console.WriteLine("The wolf is less likely to hit you than you are to hit him however:");
+        Console.WriteLine("If the wolf does hit you, your chances of running away decreses.\n");
+        Console.WriteLine("The wolf also has more health than you and does more damage.");
+        Console.WriteLine("Winning by attacking is possible buy very unlikely --");
+        Console.ReadKey();
+        Console.Clear();
+        
+    }
+
+    else
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("The battle begins");
+        Console.ReadKey();
+        Console.Clear();
+    }
+    
+
 
     if (!playersTurn && !wolfsTurn)
     {
         playersTurn = true;
     }
 
-    while (playersTurn)
+    while (playersTurn && !playerDeath)
     {
-        playerDamage = rnd.Next(pMinDamage, pMaxDamage);
+
+            if (playerHealth <= 0)
+        {
+            playerDeath = true;
+        }
+        else if (playerHealth > 0)
+        {
+              playerDamage = rnd.Next(pMinDamage, pMaxDamage);
         dice = rnd.Next(1,100);
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Use your " + currentWeapon + " (1)");
@@ -272,7 +356,7 @@ while (battle)
                     Console.WriteLine("Running oods: " + runningOdds);
                     Console.WriteLine("Player health: " + playerHealth);
                     Console.WriteLine("Player acc: " + playerAccuracy);
-                    Console.WriteLine("Dice: " + dice);
+                    Console.WriteLine("Your chances of running increses");
                     Console.ReadKey();
                     playersTurn = false;
                     wolfsTurn = true;
@@ -290,22 +374,44 @@ while (battle)
             break;
 
             case 2:
-            dice = rnd.Next(1,101);
-               
-                for (int i = 100; i >= 1; i--) 
+            Console.Clear();
+            dice = rnd.Next(1,100);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("How far you have to run: ");
+                for (int i = 0; i <= dice; i++) 
                  {
-                            Console.Write($"\r{i}");
+                            
+                            Console.Write("| " + $"\r{i}");
                             Thread.Sleep(50);
-                            if (i == dice || i == runningOdds)
+                            if (i == dice)
                     {
                         break;
                     }
                  } 
+                 Console.WriteLine("\n" + dice);
+                 Console.ReadKey();
+
+                 Console.ForegroundColor = ConsoleColor.Green;
+                 Console.WriteLine("How far you got: ");
+
+                for (int i = 0; i <= runningOdds; i++)
+                {
+                    Console.Write($"\r{i}");
+                    Thread.Sleep(50); 
+
+                    if (i == runningOdds)
+                    {
+                        break;
+                    }
+                }
+                Console.WriteLine("\n" + runningOdds); 
+                Console.ReadKey();
+
 
             if (runningOdds < dice)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Dice: " + dice);
                     Console.WriteLine("You tried to run but the wolf is just to fast for you");
                     Console.ReadKey();
                     playersTurn = false;
@@ -330,17 +436,10 @@ while (battle)
             break;
             
         }
-
-        if (playerHealth <= 0)
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("The wolf has killed you");
-            Console.ReadKey();
-            playersTurn = false;
-            wolfsTurn = false;
-            battle = false;
+            
         }
+      
+
 
         while (wolfsTurn)
         {
@@ -350,7 +449,9 @@ while (battle)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 playerHealth -= wolfDamage;
+                runningOdds -= 10;
                 Console.WriteLine("The wolf attacked you.... it hurts");
+                Console.WriteLine("Your chances of running away decreses");
                 Console.ReadKey();
                 wolfsTurn = false;
                 playersTurn = true;
@@ -369,13 +470,26 @@ while (battle)
         }
     }
 
-    if (canRun || unlikelyEnding)
+    if (canRun || unlikelyEnding || playerDeath)
     {
         battle = false;
     }
 
 }
 
-Console.Clear();
-Console.ForegroundColor = ConsoleColor.White;
-Console.WriteLine("Next Level");
+        if (playerDeath)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("The wolf has killed you");
+            Console.ReadKey();
+            Environment.Exit(0);
+
+        }
+
+else
+{
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine("Next Level");
+}
