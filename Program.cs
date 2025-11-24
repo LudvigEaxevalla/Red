@@ -106,7 +106,8 @@ Console.ForegroundColor = ConsoleColor.DarkYellow;
 
 while (!hasChosenTip)
 {        
-    Console.WriteLine("\n\n Would you like information information how the game works from time to time?");
+    Console.WriteLine("\n\n Would you like explanations on how the game works from time to time?");
+    Console.WriteLine("This will also include seeing stats like health in battles");
     Console.WriteLine("y/n");
     choice = Console.ReadLine();
 
@@ -204,8 +205,16 @@ Console.Clear();
 Console.ForegroundColor = ConsoleColor.White;
 
 //--FOREST PART 1--//
+Console.ForegroundColor = ConsoleColor.DarkGreen;
+ Console.WriteLine(" _______ _    _ ______   ______ ____  _____  ______  _____ _______");
+ Console.WriteLine("|__   __| |  | |  ____| |  ____/ __ \\|  __ \\|  ____|/ ____|__   __|");
+ Console.WriteLine("   | |  | |__| | |__    | |__ | |  | | |__) | |__  | (___    | | ");  
+ Console.WriteLine("   | |  |  __  |  __|   |  __|| |  | |  _  /|  __|  \\___ \\   | | ");  
+ Console.WriteLine("   | |  | |  | | |____  | |   | |__| | | \\ \\| |____ ____) |  | |  ");  
+ Console.WriteLine("   |_|  |_|  |_|______| |_|    \\____/|_|  \\_\\______|_____/   |_| ");   
+                                                                    
 
-Console.Write("You walk for a bit and stop where you know ");
+Console.Write("\n\nYou walk for a bit and stop where you know ");
 Console.ForegroundColor = ConsoleColor.DarkBlue;
 Console.Write("blueberries ");
 Console.ResetColor();
@@ -232,9 +241,9 @@ while (!hasChosenFoodFirst)
     switch (foodChoice)
 {
     case 1:
-    playerHealth += 20;
+    playerHealth += 15;
     playerSpeed += 5;
-    playerAccuracy += 10;
+    playerAccuracy += 5;
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("You feel more energiezed than before and your journey continues!");
     Console.ReadKey();
@@ -243,11 +252,11 @@ while (!hasChosenFoodFirst)
     break;
 
     case 2:
-    playerHealth -= 20;
+    playerHealth -= 15;
     playerSpeed -= 5;
-    playerAccuracy -= 10;
+    playerAccuracy -= 7;
     Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("You feel.... not so good... That probably wasn't a good idea but you continue");
+    Console.WriteLine("You feel.... not so good... That was probably a bad idea but you continue");
     Console.ReadKey();
     Console.Clear();
     hasChosenFoodFirst = true;
@@ -268,6 +277,8 @@ while (!hasChosenFoodFirst)
 }
 
 //--WOLF ENCOUNTER - FIGHT--//
+                                                                    
+
 Console.ForegroundColor = ConsoleColor.White;
 
 
@@ -290,27 +301,27 @@ while (battle)
     {
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("-- You always have the first turn in battle and you have one of two options each turn. ");
+        Console.WriteLine("You always have the first turn in battle and you have one of two options each turn. ");
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("1. Attack the wolf with the weapon you choose at the beginning of the game. \n");
+        Console.WriteLine("\n1. Attack the wolf with the weapon you chose at the beginning of the game.");
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("There is always a chance that you will miss the wolf when attacking in wich case it will be the wolfs turn");
         Console.WriteLine("If you hit the wolf, the wolf will become a bit slower and your chances of running away increses \n");
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("2. You can try to run away from the wolf. \n");
+        Console.WriteLine("2. You can try to run away from the wolf.");
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("At first you will have 0 chanses of running from the wolf. It only increases when you succesfully hit the wolf");
-        Console.WriteLine("When you try to run a number will show how long you have to go. This number is always between 1 and 100");
+        Console.WriteLine("When you try to run, a number will show how long you have to go. This number always changes");
         Console.WriteLine("After - your distance is shown. If your distance is the same or more than the first number, you will successfully run from the wolf");
-        Console.WriteLine("If you fail to run, it will be the wolfs turn --");
+        Console.WriteLine("If you fail to run, it will be the wolfs turn");
         Console.WriteLine("\n");
         Console.ReadKey();
         Console.Clear();
-        Console.WriteLine("-- The wolf only has one move: Attack");
-        Console.WriteLine("The wolf is less likely to hit you than you are to hit him however:");
-        Console.WriteLine("If the wolf does hit you, your chances of running away decreses.\n");
+        Console.WriteLine("The wolf only has one move: Attack");
+        Console.WriteLine("The wolf is less likely to hit you than you are to hit him, however:");
+        Console.WriteLine("If the wolf does hit you, your chances of running away decreses and the wolfs chance of hitting you next time slightly increses.\n");
         Console.WriteLine("The wolf also has more health than you and does more damage.");
-        Console.WriteLine("Winning by attacking is possible buy very unlikely --");
+        Console.WriteLine("Winning by just attacking is possible buy very unlikely");
         Console.ReadKey();
         Console.Clear();
         
@@ -390,8 +401,6 @@ while (battle)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You missed!");
-                    Console.WriteLine(dice);
-                    Console.WriteLine(playerAccuracy);
                     Console.ReadKey();
                     playersTurn = false;
                     wolfsTurn = true;
