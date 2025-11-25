@@ -440,7 +440,6 @@ while (battle)
                     }
                  } 
                  Console.WriteLine("\n" + dice);
-                 Console.ReadKey();
 
                  Console.ForegroundColor = ConsoleColor.Green;
                  Console.WriteLine("Your distance: ");
@@ -512,7 +511,6 @@ while (battle)
                     }
                  } 
                  Console.WriteLine("\n" + wolfAccuracy);
-                 Console.ReadKey();
 
                  Console.ForegroundColor = ConsoleColor.Green;
                  Console.WriteLine("Your defense: ");
