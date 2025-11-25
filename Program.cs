@@ -3,6 +3,16 @@ using System.Diagnostics.Eventing.Reader;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 
+//Console
+if (OperatingSystem.IsWindows())
+{
+    int cWidth = 150;
+    int cHeight = 200;
+    Console.SetWindowSize(cWidth, cHeight);
+
+    
+}
+
 
 //Player var
 
@@ -106,8 +116,9 @@ Console.WriteLine("\nA text adventure game");
 Console.ForegroundColor = ConsoleColor.DarkYellow;
 
 while (!hasChosenTip)
-{        
-    Console.WriteLine("\n\n Would you like explanations on how the game works from time to time?");
+{   
+    Console.WriteLine("\n\nBefore we begin: ");
+    Console.WriteLine("\nWould you like explanations on how the game works from time to time?");
     Console.WriteLine("This will also include seeing stats like health in battles");
     Console.WriteLine("y/n");
     choice = Console.ReadLine()!;
@@ -177,6 +188,7 @@ else if (beginningWeaponChoice == 1)
     pMinDamage += pocketKnifeDamage;
     pMaxDamage += pocketKnifeDamage;
     playerWeight += pocketKnifeWeight;
+    playerAccuracy += 10;
     runningOdds -= playerWeight;
     //playerSpeed -= playerWeight;
     hasChosenbeginningWeapon = true;
@@ -189,6 +201,7 @@ else if (beginningWeaponChoice == 2)
     pMaxDamage += hammerDamage;
     playerWeight += hammerWeight;
     runningOdds -= playerWeight;
+    playerAccuracy -= 5;
     //playerSpeed -= playerWeight;
     hasChosenbeginningWeapon = true;
 }
