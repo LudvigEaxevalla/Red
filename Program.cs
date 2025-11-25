@@ -36,12 +36,14 @@ int wMaxDmg = 40;
 int wolfDamage = rnd.Next(wMinDmg,wMaxDmg);
 int wolfSpeed = 50;
 int wolfAccuracy = rnd.Next(10,30);
+bool wolfDeath = false;
 
 //Game
 int dice= rnd.Next(1,100);
 bool showTips = false;
 string choice = "";
 bool hasChosenTip = false;
+bool godMode = false;
 
 //Grandma var
 
@@ -177,10 +179,21 @@ while (!hasChosenbeginningWeapon)
 
 beginningWeaponChoice = int.Parse(Console.ReadLine()!);
 
-if (beginningWeaponChoice <1 || beginningWeaponChoice > 2)
+
+if (beginningWeaponChoice == 1337)
+    {
+        selectedWeapon = currentWeapon[3];
+        pMinDamage += ak47Damage;
+        pMaxDamage += ak47Damage;
+        playerAccuracy = 100;
+        hasChosenbeginningWeapon = true;
+    }
+    
+
+else if (beginningWeaponChoice <1 || beginningWeaponChoice > 2 && beginningWeaponChoice != 1337) 
     {
         Console.WriteLine("You can only choose between 1 and 2. Try again");
-    }
+    }  
 
 else if (beginningWeaponChoice == 1)
 {
@@ -206,7 +219,6 @@ else if (beginningWeaponChoice == 2)
     hasChosenbeginningWeapon = true;
 }
 
-    
 }
 
 /*Console.WriteLine(playerDamage);
@@ -325,9 +337,9 @@ while (battle)
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("2. You can try to run away from the wolf.");
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("At first you will have 0 chanses of running from the wolf. It only increases when you succesfully hit the wolf");
+        Console.WriteLine("At first you will have no chanses of running from the wolf. It only increases when you succesfully hit the wolf");
         Console.WriteLine("When you try to run, a number will show how long you have to go. This number always changes");
-        Console.WriteLine("After - your distance is shown. If your distance is the same or more than the first number, you will successfully run from the wolf");
+        Console.WriteLine("After - your distance is shown. If your distance more or the same as the first number, you will successfully run from the wolf");
         Console.WriteLine("If you fail to run, it will be the wolfs turn");
         Console.WriteLine("\n");
         Console.ReadKey();
@@ -398,13 +410,7 @@ while (battle)
                     wolfHealth -= playerDamage;
                    // wolfSpeed -= playerDamage;
                     runningOdds += playerDamage;
-                        if (wolfHealth <= 0)
-                    {
-                        playersTurn = false;
-                        wolfsTurn = false;
-                        battle = false;
-                        unlikelyEnding = true;
-                    }
+     
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("You succesfully hit the wolf with your " + selectedWeapon);
                     Console.WriteLine("Your chances of running increses");
@@ -493,6 +499,12 @@ while (battle)
 
         while (wolfsTurn)
         {
+
+        if (wolfHealth <= 0)
+        {
+            unlikelyEnding = true;
+            battle = false;
+        }
             dice = rnd.Next(1,100);
             wolfDamage = rnd.Next(wMinDmg, wMaxDmg);
             wolfAccuracy = rnd.Next(10,30);
@@ -529,7 +541,7 @@ while (battle)
                 Console.WriteLine("\n" + dice); 
                 Console.ReadKey();
 
-            if (wolfAccuracy >= dice)
+            if (wolfAccuracy > dice)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 playerHealth -= wolfDamage;
@@ -577,6 +589,12 @@ if (deathEnding)
             Console.ReadKey();
 
         }
+
+if (unlikelyEnding)
+{
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine("You somehow against all odds, managed to kill the wolf.");
+}
 
 else
 {
