@@ -25,7 +25,7 @@ int wMinDmg = 20;
 int wMaxDmg = 40;
 int wolfDamage = rnd.Next(wMinDmg,wMaxDmg);
 int wolfSpeed = 50;
-int wolfAccuracy = 20;
+int wolfAccuracy = rnd.Next(10,30);
 
 //Game
 int dice= rnd.Next(1,100);
@@ -65,6 +65,7 @@ bool isCarryingGrandmasFood = false;
 bool unlikelyEnding = false;
 bool goodEnding = false;
 bool sadEnding = false;
+bool deathEnding = false;
 
 //Battle stuff
 bool battle = false;
@@ -109,7 +110,7 @@ while (!hasChosenTip)
     Console.WriteLine("\n\n Would you like explanations on how the game works from time to time?");
     Console.WriteLine("This will also include seeing stats like health in battles");
     Console.WriteLine("y/n");
-    choice = Console.ReadLine();
+    choice = Console.ReadLine()!;
 
         if (choice == "y" || choice == "Y")
         {
@@ -163,7 +164,7 @@ while (!hasChosenbeginningWeapon)
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("\n   What do you choose? \n1. Pocket Knife\n2. Hammer");
 
-beginningWeaponChoice = int.Parse(Console.ReadLine());
+beginningWeaponChoice = int.Parse(Console.ReadLine()!);
 
 if (beginningWeaponChoice <1 || beginningWeaponChoice > 2)
     {
@@ -214,6 +215,7 @@ Console.ForegroundColor = ConsoleColor.DarkGreen;
  Console.WriteLine("   |_|  |_|  |_|______| |_|    \\____/|_|  \\_\\______|_____/   |_| ");   
                                                                     
 
+Console.ResetColor();
 Console.Write("\n\nYou walk for a bit and stop where you know ");
 Console.ForegroundColor = ConsoleColor.DarkBlue;
 Console.Write("blueberries ");
@@ -236,7 +238,7 @@ while (!hasChosenFoodFirst)
 {
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("Do you eat the blueberries(1), the red mushroom(2) or do you continue without eating(3)?");
-    foodChoice = int.Parse(Console.ReadLine());
+    foodChoice = int.Parse(Console.ReadLine()!);    
     Console.Clear();
     switch (foodChoice)
 {
@@ -279,13 +281,13 @@ while (!hasChosenFoodFirst)
 //--WOLF ENCOUNTER - FIGHT--//
                                                                     
 
-Console.ForegroundColor = ConsoleColor.White;
+Console.ResetColor();
 
 
 Console.WriteLine("You walk without a care in the world for a while but as you get deeper into the woods,");
 Console.WriteLine("you realize how dark it gets when the trees gets closer and the path narrows.");
-Console.WriteLine("blah blah blah blah ------");
-Console.WriteLine("Something approches -- it's a wolf wondering who you are and where you're going");
+Console.WriteLine("------ blah blah blah blah ------");
+Console.WriteLine("Something approches --blah blah-- it's a wolf wondering who you are and where you're going");
 Console.ForegroundColor = ConsoleColor.Red;
 Console.WriteLine("You have no choice but to fight the wolf");
 
@@ -370,7 +372,7 @@ while (battle)
             Console.WriteLine("Your Health: " + playerHealth);
             Console.WriteLine("Wolfs Health: " + wolfHealth);  
         }
-        battleChoice = int.Parse(Console.ReadLine());
+        battleChoice = int.Parse(Console.ReadLine()!);
 
 
         switch(battleChoice){
@@ -416,7 +418,8 @@ while (battle)
                 for (int i = 0; i <= dice; i++) 
                  {
                             
-                            Console.Write("| " + $"\r{i}");
+                            //Console.Write("| " + $"\r{i}");
+                            Console.Write("|");
                             Thread.Sleep(50);
                             if (i == dice)
                     {
@@ -431,7 +434,8 @@ while (battle)
 
                 for (int i = 0; i <= runningOdds; i++)
                 {
-                    Console.Write($"\r{i}");
+                    //Console.Write($"\r{i}");
+                    Console.Write("|");
                     Thread.Sleep(50); 
 
                     if (i == runningOdds)
@@ -477,8 +481,43 @@ while (battle)
 
         while (wolfsTurn)
         {
-            wolfDamage = rnd.Next(wMinDmg, wMaxDmg);
             dice = rnd.Next(1,100);
+            wolfDamage = rnd.Next(wMinDmg, wMaxDmg);
+            wolfAccuracy = rnd.Next(10,30);
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("The Wolfs attack: ");
+                for (int i = 0; i <= wolfAccuracy; i++) 
+                 {
+                            
+                            //Console.Write("| " + $"\r{i}");
+                            Console.Write("|");
+                            Thread.Sleep(20);
+                            if (i == wolfAccuracy)
+                    {
+                        break;
+                    }
+                 } 
+                 Console.WriteLine("\n" + wolfAccuracy);
+                 Console.ReadKey();
+
+                 Console.ForegroundColor = ConsoleColor.Green;
+                 Console.WriteLine("Your defense: ");
+
+                for (int i = 0; i <= dice; i++)
+                {
+                    //Console.Write($"\r{i}");
+                    Console.Write("|");
+                    Thread.Sleep(20); 
+
+                    if (i == dice)
+                    {
+                        break;
+                    }
+                }
+                Console.WriteLine("\n" + dice); 
+                Console.ReadKey();
+
             if (wolfAccuracy >= dice)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -512,6 +551,13 @@ while (battle)
 
 }
 
+if (deathEnding)
+{
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    Console.WriteLine("");
+}
+
         if (playerDeath)
         {
             Console.Clear();
@@ -524,6 +570,6 @@ while (battle)
 else
 {
     Console.Clear();
-    Console.ForegroundColor = ConsoleColor.White;
+    Console.ResetColor();
     Console.WriteLine("Next Level");
 }
