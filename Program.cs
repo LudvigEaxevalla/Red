@@ -372,7 +372,6 @@ while (battle)
 
     while (playersTurn && !playerDeath)
 
-
     {
 
             if (playerHealth <= 0)
@@ -416,7 +415,8 @@ while (battle)
                     Console.WriteLine("Your chances of running increses");
                     Console.ReadKey();
                     playersTurn = false;
-                    wolfsTurn = true;
+                    wolfsTurn = true;                            
+
                 }
                 else
                 {
@@ -497,14 +497,18 @@ while (battle)
       
 
 
-        while (wolfsTurn)
+        while (wolfsTurn && !wolfDeath) 
         {
 
         if (wolfHealth <= 0)
         {
             unlikelyEnding = true;
+            wolfDeath = true;
             battle = false;
         }
+
+        else
+            {
             dice = rnd.Next(1,100);
             wolfDamage = rnd.Next(wMinDmg, wMaxDmg);
             wolfAccuracy = rnd.Next(10,30);
@@ -564,10 +568,13 @@ while (battle)
                 wolfsTurn = false;
                 playersTurn = true;
             }
-        }
+        }                
+            }
+
+
     }
 
-    if (canRun || unlikelyEnding || playerDeath)
+    if (canRun || wolfDeath || playerDeath)
     {
         battle = false;
     }
@@ -590,15 +597,18 @@ if (deathEnding)
 
         }
 
-if (unlikelyEnding)
+else if (unlikelyEnding)
 {
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("You somehow against all odds, managed to kill the wolf.");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("You somehow against all odds, managed to kill the wolf.");
+        Console.ReadKey();
 }
 
 else
 {
     Console.Clear();
     Console.ResetColor();
-    Console.WriteLine("Next Level");
+    Console.WriteLine("");
+    Console.ReadKey();
 }
+
