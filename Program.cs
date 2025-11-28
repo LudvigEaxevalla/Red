@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 
@@ -62,7 +63,6 @@ int endgameWeaponChoice;
 //Food Choices
 int foodChoice;
 bool hasChosenFoodFirst = false;
-bool hasChosenFoodSecond = false;
 
 //Weigth stuff
 double pocketKnifeWeight = 2;
@@ -88,7 +88,19 @@ int battleChoice = 0;
 
 double runningOdds = 0;
 
+//Deep forest"
+string[] direction = {"North", "East", "South", "West"};
 
+bool startPoint = false;
+bool southArea = false;
+bool northArea = false;
+bool eastArea = false;
+bool westArea = false;
+bool southWestArea = false;
+bool southEastArea = false;
+bool northEastArea = false;
+bool northWestArea = false;
+bool pathArea = false;
 
 //Areas
 
@@ -187,6 +199,7 @@ if (beginningWeaponChoice == 1337)
         pMaxDamage += ak47Damage;
         playerAccuracy = 100;
         hasChosenbeginningWeapon = true;
+        runningOdds = 150;
     }
     
 
@@ -231,7 +244,7 @@ Console.Clear();
 Console.ForegroundColor = ConsoleColor.White;
 
 //--FOREST PART 1--//
-Console.ForegroundColor = ConsoleColor.DarkGreen;
+Console.ForegroundColor = ConsoleColor.Green;
  Console.WriteLine(" _______ _    _ ______   ______ ____  _____  ______  _____ _______");
  Console.WriteLine("|__   __| |  | |  ____| |  ____/ __ \\|  __ \\|  ____|/ ____|__   __|");
  Console.WriteLine("   | |  | |__| | |__    | |__ | |  | | |__) | |__  | (___    | | ");  
@@ -454,7 +467,7 @@ while (battle)
                 {
                     //Console.Write($"\r{i}");
                     Console.Write("|");
-                    Thread.Sleep(50); 
+                    Thread.Sleep(50);
 
                     if (i == runningOdds)
                     {
@@ -606,9 +619,26 @@ else if (unlikelyEnding)
 
 else
 {
+    //Next Chapter - Everything will be in this else statement, its just how its gonna be okay
     Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkGreen;
+
+        //I was today years old when I found out I could've done this the whole time
+        Console.WriteLine(@"
+     _____  ______ ______ _____    ______ ____  _____  ______  _____ _______ 
+    |  __ \|  ____|  ____|  __ \  |  ____/ __ \|  __ \|  ____|/ ____|__   __|
+    | |  | | |__  | |__  | |__) | | |__ | |  | | |__) | |__  | (___    | |   
+    | |  | |  __| |  __| |  ___/  |  __|| |  | |  _  /|  __|  \___ \   | |   
+    | |__| | |____| |____| |      | |   | |__| | | \ \| |____ ____) |  | |   
+    |_____/|______|______|_|      |_|    \____/|_|  \_\______|_____/   |_|   
+    ");
     Console.ResetColor();
-    Console.WriteLine("");
-    Console.ReadKey();
+    Console.WriteLine("\n\n");
+    Console.WriteLine(@"
+    When running you completely lost your sense of direction and the path you followed 
+    is no longer in sight. The battle has also made you hungry again. You could eat your sick grandmothers food
+    or if your lucky, find some fruit or berries in the woods.
+    ");
+
 }
 
