@@ -88,8 +88,11 @@ int battleChoice = 0;
 
 double runningOdds = 0;
 
-//Deep forest"
+//Deep forest
 string[] direction = {"North", "East", "South", "West"};
+bool deepForest = false;
+
+
 
 bool startPoint = false;
 bool southArea = false;
@@ -101,6 +104,136 @@ bool southEastArea = false;
 bool northEastArea = false;
 bool northWestArea = false;
 bool pathArea = false;
+
+
+int x = 0;
+int y = 0;
+int position = x+y;
+
+
+//Maps     //Arrows - → ↑ ← ↓
+
+string mapStart = @"
+        -----------| ↑ |-----------
+        |                         |
+        |            N            |
+        |                         |
+        _                         _
+
+        ← W                     E →
+        _                         _
+        |                         |
+        |            S            |
+        |                         |
+        -----------| ↓ |-----------";
+    //East
+string mapEast =  @"
+        -----------| ↑ |-----------
+        |                         |
+        |            N            |
+        |                         |
+        _                         |
+                                  |
+        ← W                       |
+        _                         |
+        |                         |
+        |            S            |
+        |                         |
+        -----------| ↓ |-----------";
+string mapSouthEast =  @"
+        -----------| ↑ |-----------
+        |                         |
+        |            N            |
+        |                         |
+        _                         |
+                                  |
+        ← W                       |
+        _                         |
+        |                         |
+        |                         |
+        |                         |
+        ---------------------------";
+string mapNorthEast =   @"
+        ---------------------------
+        |                         |
+        |                         |
+        |                         |
+        _                         |
+                                  |
+        ← W                       |
+        _                         |
+        |                         |
+        |            S            |
+        |                         |
+        -----------| ↓ |-----------";
+    //West
+string mapWest = @"
+        -----------| ↑ |-----------
+        |                         |
+        |            N            |
+        |                         |
+        |                         _
+        |
+        |                       E →
+        |                         _
+        |                         |
+        |            S            |
+        |                         |
+        -----------| ↓ |-----------";
+string mapSouthWest = @"
+        -----------| ↑ |-----------
+        |                         |
+        |            N            |
+        |                         |
+        |                         _
+        |
+        |                       E →
+        |                         _
+        |                         |
+        |                         |
+        |                         |
+        ---------------------------";
+string mapNorthWest = @"
+        ---------------------------
+        |                         |
+        |                         |
+        |                         |
+        _                         _
+
+        ← W                     E →
+        _                         _
+        |                         |
+        |            S            |
+        |                         |
+        -----------| ↓ |-----------";
+    //South
+string mapSouth = @"
+        -----------| ↑ |-----------
+        |                         |
+        |            N            |
+        |                         |
+        _                         _
+
+        ← W                     E →
+        _                         _
+        |                         |
+        |                         |
+        |                         |
+        ---------------------------";
+    //North
+string mapNorth = @"
+        ---------------------------
+        |                         |
+        |                         |
+        |                         |
+        _                         _
+
+        ← W                     E →
+        _                         _
+        |                         |
+        |            S            |
+        |                         |
+        -----------| ↓ |-----------";
 
 //Areas
 
@@ -619,7 +752,7 @@ else if (unlikelyEnding)
 
 else
 {
-    //Next Chapter - Everything will be in this else statement, its just how its gonna be okay
+    //Next Chapter - Everything will be in this else statement, its just how its gonna be
     Console.Clear();
     Console.ForegroundColor = ConsoleColor.DarkGreen;
 
@@ -636,9 +769,37 @@ else
     Console.WriteLine("\n\n");
     Console.WriteLine(@"
     When running you completely lost your sense of direction and the path you followed 
-    is no longer in sight. The battle has also made you hungry again. You could eat your sick grandmothers food
-    or if your lucky, find some fruit or berries in the woods.
+    is no longer in sight. You rest for a while and altough you feel better after it, your're still
+    not fully yourself. You now find yourself hungry, hurt and lost. If you only find the path again,
+    you will know where to go from there.
+
     ");
+    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+    Console.WriteLine("[Enter→]");
+    Console.ResetColor();
+
+    playerHealth += 10;
+    Console.ReadKey();
+    startPoint = true;
+    deepForest = true;
+
+
+    while (deepForest && !pathArea)
+    {
+
+        if (startPoint)
+        {
+            Console.Clear();
+            Console.WriteLine(mapStart + "\n\n");
+            Console.WriteLine("Wich way do you go?");
+            Console.ReadKey();
+            startPoint = false;
+        }
+    } 
+
+    
+
+
 
 }
 
