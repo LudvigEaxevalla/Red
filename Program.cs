@@ -81,7 +81,7 @@ int battleChoice = 0;
 double runningOdds = 0;
 
 //Deep forest
-string[] direction = {"North", "East", "South", "West"};
+int direction;
 bool deepForest = false;
 
 
@@ -104,6 +104,7 @@ int position = x+y;
 
 
 //Maps     //Arrows - → ↑ ← ↓
+
 
 string mapStart = @"
          ~~~~~~~~~~| ^ |~~~~~~~~~~
@@ -219,6 +220,8 @@ string mapNorth = @"
         §                          §
          ~~~~~~~~~~| \/ |~~~~~~~~~~";
 
+string currentMap = mapStart;
+
 //Areas
 
 /* 
@@ -230,6 +233,17 @@ string mapNorth = @"
 5. Grandmas house
 
 */
+
+
+void PlayerDeath() 
+{
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    Console.WriteLine("Game Over");
+    Console.ReadKey();
+    Environment.Exit(0);
+}
+
 
 
 Console.Clear();
@@ -722,7 +736,8 @@ if (deathEnding)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("The wolf has killed you\nGame Over");
+            Console.WriteLine("The wolf has killed you");
+            PlayerDeath();
             Console.ReadKey();
 
         }
@@ -771,13 +786,88 @@ else
     while (deepForest && !pathArea)
     {
 
+        Console.Clear();
+        Console.WriteLine(currentMap + "\n\n");
         if (startPoint)
         {
-            Console.Clear();
-            Console.WriteLine(mapStart + "\n\n");
+
             Console.WriteLine("Wich way do you go?");
-            Console.ReadKey();
+            Console.WriteLine("1. North, 2. East, 3. South, 4. West");
+            direction = int.Parse(Console.ReadLine()!);
             startPoint = false;
+
+            switch(direction)
+            {
+                //Go North
+                case 1:
+                    northArea = true;
+                    currentMap = mapNorth;
+                    Console.ReadKey();
+                break;
+                
+                //Go East
+                case 2:
+                    eastArea = true;
+                    currentMap = mapEast;
+                break;
+
+                //Go South
+                case 3:
+                    southArea = true;
+                    currentMap = mapSouth;
+                break;
+
+                //Go West
+                case 4:
+                    westArea = true;
+                    currentMap = mapWest;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    startPoint = true;
+                break;
+
+
+            }
+
+        }
+        else if (northArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. South, 3. West");
+            direction = int.Parse(Console.ReadLine()!);
+            northArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    eastArea = true;
+                    currentMap = mapEast;
+                break;
+
+                //Go South
+                case 2:
+                    southArea = true;
+                    currentMap = mapSouth;
+                break;
+
+                //Go West
+                case 3:
+                    westArea = true;
+                    currentMap = mapWest;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    northArea = true;
+                break;
+
+
+            }
+            
         }
     } 
 
