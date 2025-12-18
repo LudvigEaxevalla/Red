@@ -8,19 +8,19 @@
     "net9.0": []
   },
   "packageFolders": {
-    "/home/leinarsson/.nuget/packages/": {}
+    "/home/FuxiT/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/leinarsson/Documents/Programmering/Red/RedGame.csproj",
+      "projectUniqueName": "/home/FuxiT/Documents/Red/RedGame.csproj",
       "projectName": "RedGame",
-      "projectPath": "/home/leinarsson/Documents/Programmering/Red/RedGame.csproj",
-      "packagesPath": "/home/leinarsson/.nuget/packages/",
-      "outputPath": "/home/leinarsson/Documents/Programmering/Red/obj/",
+      "projectPath": "/home/FuxiT/Documents/Red/RedGame.csproj",
+      "packagesPath": "/home/FuxiT/.nuget/packages/",
+      "outputPath": "/home/FuxiT/Documents/Red/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/leinarsson/.nuget/NuGet/NuGet.Config"
+        "/home/FuxiT/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"

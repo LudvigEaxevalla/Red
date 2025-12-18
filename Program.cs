@@ -802,11 +802,10 @@ else
                 case 1:
                     northArea = true;
                     currentMap = mapNorth;
-                    Console.ReadKey();
                 break;
                 
                 //Go East
-                case 2:
+                case 2:           
                     eastArea = true;
                     currentMap = mapEast;
                 break;
@@ -832,6 +831,7 @@ else
             }
 
         }
+
         else if (northArea)
         {
             Console.WriteLine("Wich way do you go?");
@@ -844,20 +844,20 @@ else
 
                 //Go East
                 case 1:
-                    eastArea = true;
-                    currentMap = mapEast;
+                    northEastArea = true;
+                    currentMap = mapNorthEast;
                 break;
 
                 //Go South
                 case 2:
-                    southArea = true;
-                    currentMap = mapSouth;
+                    startPoint = true;
+                    currentMap = mapStart;
                 break;
 
                 //Go West
                 case 3:
-                    westArea = true;
-                    currentMap = mapWest;
+                    northWestArea = true;
+                    currentMap = mapNorthWest;
                 break;
 
                 default:
@@ -869,7 +869,258 @@ else
             }
             
         }
+        
+        else if (southArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. North, 3. West");
+            direction = int.Parse(Console.ReadLine()!);
+            southArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    southEastArea = true;
+                    currentMap = mapSouthEast;
+                break;
+
+                //Go North
+                case 2:
+                    startPoint = true;
+                    currentMap = mapStart;
+                break;
+
+                //Go West
+                case 3:
+                    southWestArea = true;
+                    currentMap = mapSouthWest;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    southArea = true;
+                break;
+
+
+            }
+            
+        }
+        
+        else if (eastArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. North, 2. South, 3. West");
+            direction = int.Parse(Console.ReadLine()!);
+            eastArea = false;
+
+            switch(direction)
+            {
+
+                //Go North
+                case 1:
+                    northEastArea = true;
+                    currentMap = mapNorthEast;
+                break;
+
+                //Go South
+                case 2:
+                    southEastArea = true;
+                    currentMap = mapSouthEast;
+                break;
+
+                //Go West
+                case 3:
+                    startPoint = true;
+                    currentMap = mapStart;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    eastArea = true;
+                break;
+
+
+            }
+            
+        }
+            
+        else if (westArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. South, 3. North");
+            direction = int.Parse(Console.ReadLine()!);
+            westArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    startPoint = true;
+                    currentMap = mapStart;
+                break;
+
+                //Go South
+                case 2:
+                    southWestArea = true;
+                    currentMap = mapSouthWest;
+                break;
+
+                //Go North
+                case 3:
+                    northWestArea = true;
+                    currentMap = mapNorthWest;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    westArea = true;
+                break;
+
+
+            }
+            
+        }
+
+        else if (northEastArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. South, 2. West");
+            direction = int.Parse(Console.ReadLine()!);
+            northEastArea = false;
+
+            switch(direction)
+            {
+
+                //Go South
+                case 1:
+                    eastArea = true;
+                    currentMap = mapEast;
+                break;
+
+                //Go West
+                case 2:
+                    northArea = true;
+                    currentMap = mapNorth;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    northEastArea = true;
+                break;
+
+
+            }
+            
+        }
+
+        else if (northWestArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. South, 3. West");
+            direction = int.Parse(Console.ReadLine()!);
+            northWestArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    northArea = true;
+                    currentMap = mapNorth;
+                break;
+
+                //Go South
+                case 2:
+                    westArea = true;
+                    currentMap = mapWest;
+                break;
+
+                //Go West
+                case 3:
+                    pathArea = true;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    northWestArea = true;
+                break;
+
+
+            }
+            
+        }
+
+        else if (southWestArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. North");
+            direction = int.Parse(Console.ReadLine()!);
+            southWestArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    southArea = true;
+                    currentMap = mapSouth;
+                break;
+
+                //Go North
+                case 2:
+                    westArea = true;
+                    currentMap = mapWest;
+                break;
+
+
+                default:
+                    Console.WriteLine("try again");
+                    southWestArea = true;
+                break;
+
+
+            }
+            
+        }
+
+        else if (southEastArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. North, 2. West");
+            direction = int.Parse(Console.ReadLine()!);
+            southEastArea = false;
+
+            switch(direction)
+            {
+
+                //Go North
+                case 1:
+                    eastArea = true;
+                    currentMap = mapEast;
+                break;
+
+                //Go West
+                case 2:
+                    southArea = true;
+                    currentMap = mapSouth;
+                break;
+
+
+                default:
+                    Console.WriteLine("try again");
+                    southEastArea = true;
+                break;
+
+
+            }
+            
+        }
+
     } 
+
 
     
 
