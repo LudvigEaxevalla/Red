@@ -1,17 +1,10 @@
 using System;
 using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 
 //Console
-if (OperatingSystem.IsWindows())
-{
-    int cWidth = 150;
-    int cHeight = 200;
-    Console.SetWindowSize(cWidth, cHeight);
-
-    
-}
 
 
 //Player var
@@ -62,7 +55,6 @@ int endgameWeaponChoice;
 //Food Choices
 int foodChoice;
 bool hasChosenFoodFirst = false;
-bool hasChosenFoodSecond = false;
 
 //Weigth stuff
 double pocketKnifeWeight = 2;
@@ -88,7 +80,147 @@ int battleChoice = 0;
 
 double runningOdds = 0;
 
+//Deep forest
+int direction;
+bool deepForest = false;
 
+
+
+bool startPoint = false;
+bool southArea = false;
+bool northArea = false;
+bool eastArea = false;
+bool westArea = false;
+bool southWestArea = false;
+bool southEastArea = false;
+bool northEastArea = false;
+bool northWestArea = false;
+bool pathArea = false;
+
+
+int x = 0;
+int y = 0;
+int position = x+y;
+
+
+//Maps     //Arrows - → ↑ ← ↓
+
+
+string mapStart = @"
+         ~~~~~~~~~~| ^ |~~~~~~~~~~
+        §                          §
+        §          North           §
+        §                          §
+        -                          -                            
+        < West                East >
+        -                          -
+        §                          §
+        §           South          §
+        §                          §
+         ~~~~~~~~~~| \/ |~~~~~~~~~~";
+    //East
+string mapEast =  @"
+         ~~~~~~~~~~| ^ |~~~~~~~~~~
+        §                          §
+        §          North           §
+        §                          §
+        -                          §
+                                   §
+        < West                     §
+        -                          §
+        §                          §
+        §           South          §
+        §                          §
+         ~~~~~~~~~~| \/ |~~~~~~~~~~";
+string mapSouthEast =  @"
+         ~~~~~~~~~~| ^ |~~~~~~~~~~
+        §                          §
+        §          North           §
+        §                          §
+        -                          §                                   
+        < West                     §
+        -                          §
+        §                          §
+        §                          §
+        §                          §
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~";
+string mapNorthEast =   @"
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~
+        §                          §
+        §                          §
+        §                          §
+        -                          §                           
+        < West                     §
+        -                          §
+        §                          §
+        §           South          §
+        §                          §
+         ~~~~~~~~~~| \/ |~~~~~~~~~~";
+    //West
+string mapWest = @"
+         ~~~~~~~~~~| ^ |~~~~~~~~~~
+        §                          §
+        §          North           §
+        §                          §
+        §                          -                        
+        §                     East >
+        §                          -
+        §                          §
+        §           South          §
+        §                          §
+         ~~~~~~~~~~| \/ |~~~~~~~~~~";
+string mapSouthWest = @"
+         ~~~~~~~~~~| ^ |~~~~~~~~~~
+        §                          §
+        §          North           §
+        §                          §
+        §                          -
+        §                     East >
+        §                          -
+        §                          §
+        §                          §
+        §                          §
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~";
+string mapNorthWest = @"
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~
+        §                          §
+        §                          §
+        §                          §
+        -                          -                            
+        < West                East >
+        -                          -
+        §                          §
+        §           South          §
+        §                          §
+         ~~~~~~~~~~| \/ |~~~~~~~~~~";
+    //South
+string mapSouth = @"
+         ~~~~~~~~~~| ^ |~~~~~~~~~~
+        §                          §
+        §          North           §
+        §                          §
+        -                          -                            
+        < West                East >
+        -                          -
+        §                          §
+        §                          §
+        §                          §
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    //North
+string mapNorth = @"
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~
+        §                          §
+        §                          §
+        §                          §
+        -                          -                            
+        < West                East >
+        -                          -
+        §                          §
+        §           South          §
+        §                          §
+         ~~~~~~~~~~| \/ |~~~~~~~~~~";
+
+string currentMap = mapStart;
 
 //Areas
 
@@ -101,6 +233,17 @@ double runningOdds = 0;
 5. Grandmas house
 
 */
+
+
+void PlayerDeath() 
+{
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    Console.WriteLine("Game Over");
+    Console.ReadKey();
+    Environment.Exit(0);
+}
+
 
 
 Console.Clear();
@@ -187,6 +330,7 @@ if (beginningWeaponChoice == 1337)
         pMaxDamage += ak47Damage;
         playerAccuracy = 100;
         hasChosenbeginningWeapon = true;
+        runningOdds = 150;
     }
     
 
@@ -231,7 +375,7 @@ Console.Clear();
 Console.ForegroundColor = ConsoleColor.White;
 
 //--FOREST PART 1--//
-Console.ForegroundColor = ConsoleColor.DarkGreen;
+Console.ForegroundColor = ConsoleColor.Green;
  Console.WriteLine(" _______ _    _ ______   ______ ____  _____  ______  _____ _______");
  Console.WriteLine("|__   __| |  | |  ____| |  ____/ __ \\|  __ \\|  ____|/ ____|__   __|");
  Console.WriteLine("   | |  | |__| | |__    | |__ | |  | | |__) | |__  | (___    | | ");  
@@ -372,7 +516,6 @@ while (battle)
 
     while (playersTurn && !playerDeath)
 
-
     {
 
             if (playerHealth <= 0)
@@ -416,7 +559,8 @@ while (battle)
                     Console.WriteLine("Your chances of running increses");
                     Console.ReadKey();
                     playersTurn = false;
-                    wolfsTurn = true;
+                    wolfsTurn = true;                            
+
                 }
                 else
                 {
@@ -454,7 +598,7 @@ while (battle)
                 {
                     //Console.Write($"\r{i}");
                     Console.Write("|");
-                    Thread.Sleep(50); 
+                    Thread.Sleep(50);
 
                     if (i == runningOdds)
                     {
@@ -497,14 +641,18 @@ while (battle)
       
 
 
-        while (wolfsTurn)
+        while (wolfsTurn && !wolfDeath) 
         {
 
         if (wolfHealth <= 0)
         {
             unlikelyEnding = true;
+            wolfDeath = true;
             battle = false;
         }
+
+        else
+            {
             dice = rnd.Next(1,100);
             wolfDamage = rnd.Next(wMinDmg, wMaxDmg);
             wolfAccuracy = rnd.Next(10,30);
@@ -564,10 +712,13 @@ while (battle)
                 wolfsTurn = false;
                 playersTurn = true;
             }
-        }
+        }                
+            }
+
+
     }
 
-    if (canRun || unlikelyEnding || playerDeath)
+    if (canRun || wolfDeath || playerDeath)
     {
         battle = false;
     }
@@ -585,20 +736,440 @@ if (deathEnding)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("The wolf has killed you\nGame Over");
+            Console.WriteLine("The wolf has killed you");
+            PlayerDeath();
             Console.ReadKey();
 
         }
 
-if (unlikelyEnding)
+else if (unlikelyEnding)
 {
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("You somehow against all odds, managed to kill the wolf.");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("You somehow against all odds, managed to kill the wolf.");
+        Console.ReadKey();
 }
 
 else
 {
+    //Next Chapter - Everything will be in this else statement, its just how its gonna be
     Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkGreen;
+
+        //I was today years old when I found out I could've done this the whole time
+        Console.WriteLine(@"
+     _____  ______ ______ _____    ______ ____  _____  ______  _____ _______ 
+    |  __ \|  ____|  ____|  __ \  |  ____/ __ \|  __ \|  ____|/ ____|__   __|
+    | |  | | |__  | |__  | |__) | | |__ | |  | | |__) | |__  | (___    | |   
+    | |  | |  __| |  __| |  ___/  |  __|| |  | |  _  /|  __|  \___ \   | |   
+    | |__| | |____| |____| |      | |   | |__| | | \ \| |____ ____) |  | |   
+    |_____/|______|______|_|      |_|    \____/|_|  \_\______|_____/   |_|   
+    ");
     Console.ResetColor();
-    Console.WriteLine("Next Level");
+    Console.WriteLine("\n\n");
+    Console.WriteLine(@"
+    When running you completely lost your sense of direction and the path you followed 
+    is no longer in sight. You rest for a while and altough you feel better after it, your're still
+    not fully yourself. You now find yourself hungry, hurt and lost. If you only find the path again,
+    you will know where to go from there.
+
+    ");
+    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+    Console.WriteLine("[Enter→]");
+    Console.ResetColor();
+
+    playerHealth += 10;
+    Console.ReadKey();
+    startPoint = true;
+    deepForest = true;
+    bool eatenApples = false;
+
+    void SouthWest()
+    {
+        int swOption;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine(@"
+        You find some apples laying on the ground
+        They still look fresh enough to eat");
+        Console.WriteLine("1. Eat an apple\n2. Keep moving");
+        swOption = int.Parse(Console.ReadLine()!);
+
+        switch(swOption)
+        {
+            case 1:
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You eat the apples and feel much better than before");
+                playerHealth += 50;
+                eatenApples = true;
+                southWestArea = true;
+                Console.ReadKey();
+
+            break;
+
+            case 2:
+                Console.Clear();
+                Console.WriteLine("You leave the apples behind");
+                Console.ReadKey();
+            break;
+
+            default:
+                Console.WriteLine("Try again...");
+                Console.ReadKey();
+            break;
+        }
+    }
+
+    while (deepForest && !pathArea)
+    {
+
+        Console.Clear();
+        Console.WriteLine(currentMap + "\n\n");
+        if (startPoint)
+        {
+
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. North, 2. East, 3. South, 4. West");
+            direction = int.Parse(Console.ReadLine()!);
+            startPoint = false;
+
+            switch(direction)
+            {
+                //Go North
+                case 1:
+                    northArea = true;
+                    currentMap = mapNorth;
+                break;
+                
+                //Go East
+                case 2:           
+                    eastArea = true;
+                    currentMap = mapEast;
+                break;
+
+                //Go South
+                case 3:
+                    southArea = true;
+                    currentMap = mapSouth;
+                break;
+
+                //Go West
+                case 4:
+                    westArea = true;
+                    currentMap = mapWest;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    startPoint = true;
+                break;
+
+
+            }
+
+        }
+
+        else if (northArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. South, 3. West");
+            direction = int.Parse(Console.ReadLine()!);
+            northArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    northEastArea = true;
+                    currentMap = mapNorthEast;
+                break;
+
+                //Go South
+                case 2:
+                    startPoint = true;
+                    currentMap = mapStart;
+                break;
+
+                //Go West
+                case 3:
+                    northWestArea = true;
+                    currentMap = mapNorthWest;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    northArea = true;
+                break;
+
+
+            }
+            
+        }
+        
+        else if (southArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. North, 3. West");
+            direction = int.Parse(Console.ReadLine()!);
+            southArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    southEastArea = true;
+                    currentMap = mapSouthEast;
+                break;
+
+                //Go North
+                case 2:
+                    startPoint = true;
+                    currentMap = mapStart;
+                break;
+
+                //Go West
+                case 3:
+                    southWestArea = true;
+                    currentMap = mapSouthWest;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    southArea = true;
+                break;
+
+
+            }
+            
+        }
+        
+        else if (eastArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. North, 2. South, 3. West");
+            direction = int.Parse(Console.ReadLine()!);
+            eastArea = false;
+
+            switch(direction)
+            {
+
+                //Go North
+                case 1:
+                    northEastArea = true;
+                    currentMap = mapNorthEast;
+                break;
+
+                //Go South
+                case 2:
+                    southEastArea = true;
+                    currentMap = mapSouthEast;
+                break;
+
+                //Go West
+                case 3:
+                    startPoint = true;
+                    currentMap = mapStart;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    eastArea = true;
+                break;
+
+
+            }
+            
+        }
+            
+        else if (westArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. South, 3. North");
+            direction = int.Parse(Console.ReadLine()!);
+            westArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    startPoint = true;
+                    currentMap = mapStart;
+                break;
+
+                //Go South
+                case 2:
+                    southWestArea = true;
+                    currentMap = mapSouthWest;
+                break;
+
+                //Go North
+                case 3:
+                    northWestArea = true;
+                    currentMap = mapNorthWest;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    westArea = true;
+                break;
+
+
+            }
+            
+        }
+
+        else if (northEastArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. South, 2. West");
+            direction = int.Parse(Console.ReadLine()!);
+            northEastArea = false;
+
+            switch(direction)
+            {
+
+                //Go South
+                case 1:
+                    eastArea = true;
+                    currentMap = mapEast;
+                break;
+
+                //Go West
+                case 2:
+                    northArea = true;
+                    currentMap = mapNorth;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    northEastArea = true;
+                break;
+
+
+            }
+            
+        }
+
+        else if (northWestArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. South, 3. West");
+            direction = int.Parse(Console.ReadLine()!);
+            northWestArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    northArea = true;
+                    currentMap = mapNorth;
+                break;
+
+                //Go South
+                case 2:
+                    westArea = true;
+                    currentMap = mapWest;
+                break;
+
+                //Go West
+                case 3:
+                    pathArea = true;
+                break;
+
+                default:
+                    Console.WriteLine("try again");
+                    northWestArea = true;
+                break;
+
+
+            }
+            
+        }
+
+        else if (southWestArea)
+        {
+            if (!eatenApples)
+            {
+                SouthWest();
+            }
+            else
+            {
+                
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. East, 2. North");
+            direction = int.Parse(Console.ReadLine()!);
+            southWestArea = false;
+
+            switch(direction)
+            {
+
+                //Go East
+                case 1:
+                    southArea = true;
+                    currentMap = mapSouth;
+                break;
+
+                //Go North
+                case 2:
+                    westArea = true;
+                    currentMap = mapWest;
+                break;
+
+
+                default:
+                    Console.WriteLine("try again");
+                    southWestArea = true;
+                break;
+
+
+            }
+        }
+            
+        }
+
+        else if (southEastArea)
+        {
+            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("1. North, 2. West");
+            direction = int.Parse(Console.ReadLine()!);
+            southEastArea = false;
+
+            switch(direction)
+            {
+
+                //Go North
+                case 1:
+                    eastArea = true;
+                    currentMap = mapEast;
+                break;
+
+                //Go West
+                case 2:
+                    southArea = true;
+                    currentMap = mapSouth;
+                break;
+
+
+                default:
+                    Console.WriteLine("try again");
+                    southEastArea = true;
+                break;
+
+
+            }
+            
+        }
+
+    } 
+
+
+    
+
+
+
 }
+
