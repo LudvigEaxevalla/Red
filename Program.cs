@@ -781,7 +781,44 @@ else
     Console.ReadKey();
     startPoint = true;
     deepForest = true;
+    bool eatenApples = false;
 
+    void SouthWest()
+    {
+        int swOption;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine(@"
+        You find some apples laying on the ground
+        They still look fresh enough to eat");
+        Console.WriteLine("1. Eat an apple\n2. Keep moving");
+        swOption = int.Parse(Console.ReadLine()!);
+
+        switch(swOption)
+        {
+            case 1:
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You eat the apples and feel much better than before");
+                playerHealth += 50;
+                eatenApples = true;
+                southWestArea = true;
+                Console.ReadKey();
+
+            break;
+
+            case 2:
+                Console.Clear();
+                Console.WriteLine("You leave the apples behind");
+                Console.ReadKey();
+            break;
+
+            default:
+                Console.WriteLine("Try again...");
+                Console.ReadKey();
+            break;
+        }
+    }
 
     while (deepForest && !pathArea)
     {
@@ -1055,6 +1092,13 @@ else
 
         else if (southWestArea)
         {
+            if (!eatenApples)
+            {
+                SouthWest();
+            }
+            else
+            {
+                
             Console.WriteLine("Wich way do you go?");
             Console.WriteLine("1. East, 2. North");
             direction = int.Parse(Console.ReadLine()!);
@@ -1083,6 +1127,7 @@ else
 
 
             }
+        }
             
         }
 
