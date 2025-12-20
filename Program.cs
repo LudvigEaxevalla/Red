@@ -781,7 +781,7 @@ else
     Console.ReadKey();
     startPoint = true;
     deepForest = true;
-    bool eatenApples = false;
+    bool swChoice = false;
 
     void SouthWest()
     {
@@ -801,7 +801,7 @@ else
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You eat the apples and feel much better than before");
                 playerHealth += 50;
-                eatenApples = true;
+                swChoice = true;
                 southWestArea = true;
                 Console.ReadKey();
 
@@ -810,6 +810,7 @@ else
             case 2:
                 Console.Clear();
                 Console.WriteLine("You leave the apples behind");
+                swChoice = true;
                 Console.ReadKey();
             break;
 
@@ -1092,7 +1093,7 @@ else
 
         else if (southWestArea)
         {
-            if (!eatenApples)
+            if (!swChoice)
             {
                 SouthWest();
             }
