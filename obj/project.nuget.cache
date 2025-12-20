@@ -1,8 +1,12 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "mxPo9U6r/7c=",
+=======
+  "dgSpecHash": "8ueZwsWestA=",
+>>>>>>> 0f46b59 (p)
   "success": true,
-  "projectFilePath": "/home/leinarsson/Documents/Programmering/Red/RedGame.csproj",
+  "projectFilePath": "/home/FuxiT/Documents/Red/RedGame.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
