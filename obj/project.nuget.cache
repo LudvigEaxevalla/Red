@@ -1,16 +1,15 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "8ueZwsWestA=",
-=======
-<<<<<<< HEAD
-  "dgSpecHash": "mxPo9U6r/7c=",
-=======
-  "dgSpecHash": "8ueZwsWestA=",
->>>>>>> 0f46b59 (p)
->>>>>>> refs/remotes/origin/main
   "success": true,
   "projectFilePath": "/home/FuxiT/Documents/Red/RedGame.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file /home/FuxiT/Documents/Red/obj/project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

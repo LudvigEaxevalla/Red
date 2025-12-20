@@ -96,6 +96,7 @@ bool southEastArea = false;
 bool northEastArea = false;
 bool northWestArea = false;
 bool pathArea = false;
+bool foundPath = false;
 
 
 int x = 0;
@@ -278,7 +279,7 @@ while (!hasChosenTip)
         }
         else if (choice == "n" || choice == "N")
         {
-            Console.WriteLine("More information will NOT be shown");
+            Console.WriteLine("Explanations and stats will NOT be shown");
             Console.WriteLine("Press ENTER to continue");
             hasChosenTip = true;
             Console.ReadKey();
@@ -319,8 +320,7 @@ while (!hasChosenbeginningWeapon)
 {
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("\n   What do you choose? \n1. Pocket Knife\n2. Hammer");
-
-beginningWeaponChoice = int.Parse(Console.ReadLine()!);
+    beginningWeaponChoice = int.Parse(Console.ReadLine()!);
 
 
 if (beginningWeaponChoice == 1337)
@@ -428,6 +428,7 @@ while (!hasChosenFoodFirst)
     playerAccuracy -= 7;
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("You feel.... not so good... That was probably a bad idea but you continue");
+    hadMushroomsBefore = true;
     Console.ReadKey();
     Console.Clear();
     hasChosenFoodFirst = true;
@@ -777,11 +778,14 @@ else
     Console.WriteLine("[Enter→]");
     Console.ResetColor();
 
-    playerHealth += 10;
+    playerHealth += 30;
     Console.ReadKey();
     startPoint = true;
     deepForest = true;
     bool swChoice = false;
+    bool nChoice = false;
+    bool seChoice = false;
+    int healthDecay = 6;
 
     void SouthWest()
     {
@@ -821,43 +825,152 @@ else
         }
     }
 
-    while (deepForest && !pathArea)
+    void SouthEast()
     {
-
+        int seOption;
         Console.Clear();
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine(@"
+                You found blueberries!
+                Do you eat them?");
+        Console.WriteLine("1. Eat the blueberries\n2. Keep moving");
+        seOption = int.Parse(Console.ReadLine()!);
+
+        switch(seOption)
+        {
+            case 1:
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You eat the blueberries and feel somewhat than before");
+                playerHealth += 10;
+                seChoice = true;
+                southEastArea = true;
+                Console.ReadKey();
+
+            break;
+
+            case 2:
+                Console.Clear();
+                Console.WriteLine("You leave the blueberries behind");
+                seChoice = true;
+                Console.ReadKey();
+            break;
+
+            default:
+                Console.WriteLine("Try again...");
+                Console.ReadKey();
+            break;
+        }
+    }
+
+        void North()
+    {
+        int nOption;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        if (hadMushroomsBefore)
+        {
+            Console.WriteLine(@"
+            You find the same Red Mushrooms you ate earlier, maybe it won't be so bad this time?");
+            Console.WriteLine("1. Eat the mushrooms\n2. Use common sense");
+            nOption = int.Parse(Console.ReadLine()!);         
+        }
+        else
+        {
+            Console.WriteLine(@"
+            You find the same Red Mushrooms you saw before, will you try them now?");
+            Console.WriteLine("1. Eat the mushrooms\n2. Leave them");
+            nOption = int.Parse(Console.ReadLine()!);     
+        }
+
+        switch(nOption)
+        {
+            case 1:
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                if (hadMushroomsBefore)
+                {
+                    Console.WriteLine("You feel so much worse now... Why would you think it would be a good idea a second time?");
+                    
+                }
+                else
+                {
+                    Console.WriteLine("That wasn't a good idea... You feel worse than before");
+                }
+                playerHealth -= 10;
+                nChoice = true;
+                northArea = true;
+                Console.ReadKey();
+
+            break;
+
+            case 2:
+                Console.Clear();
+                Console.WriteLine("You leave the mushrooms behind");
+                nChoice = true;
+                Console.ReadKey();
+            break;
+
+            default:
+                Console.WriteLine("Try again...");
+                Console.ReadKey();
+            break;
+        }
+    }
+
+    while (deepForest && !pathArea && !playerDeath)
+    {
+        if (playerHealth <= 0 )
+        {
+            playerDeath = true;
+        }
+
+        Console.ResetColor();
+        Console.Clear();
+        if (showTips)
+        {
+            Console.WriteLine("Health: " + playerHealth); 
+        }
         Console.WriteLine(currentMap + "\n\n");
         if (startPoint)
         {
 
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. North, 2. East, 3. South, 4. West");
+            Console.WriteLine("1. West | 2. North | 3. South | 4. East");
             direction = int.Parse(Console.ReadLine()!);
             startPoint = false;
 
             switch(direction)
             {
-                //Go North
+                //Go West
                 case 1:
-                    northArea = true;
-                    currentMap = mapNorth;
+                    westArea = true;
+                    currentMap = mapWest;
+                    playerHealth -= healthDecay;
                 break;
                 
-                //Go East
+                //Go North
                 case 2:           
-                    eastArea = true;
-                    currentMap = mapEast;
+                    northArea = true;
+                    currentMap = mapNorth;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 //Go South
                 case 3:
                     southArea = true;
                     currentMap = mapSouth;
+                    playerHealth -= healthDecay;
+
                 break;
 
-                //Go West
+                //Go East
                 case 4:
-                    westArea = true;
-                    currentMap = mapWest;
+                    eastArea = true;
+                    currentMap = mapEast;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 default:
@@ -872,30 +985,43 @@ else
 
         else if (northArea)
         {
+            if (!nChoice)
+            {
+                North();
+            }
+    else
+        {
+                
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. East, 2. South, 3. West");
+            Console.WriteLine("1. West | 2. South | 3. East");
             direction = int.Parse(Console.ReadLine()!);
             northArea = false;
 
             switch(direction)
             {
 
-                //Go East
+                //Go West
                 case 1:
-                    northEastArea = true;
-                    currentMap = mapNorthEast;
+                    northWestArea = true;
+                    currentMap = mapNorthWest;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 //Go South
                 case 2:
                     startPoint = true;
                     currentMap = mapStart;
+                    playerHealth -= healthDecay;
+
                 break;
 
-                //Go West
+                //Go East
                 case 3:
-                    northWestArea = true;
-                    currentMap = mapNorthWest;
+                    northEastArea = true;
+                    currentMap = mapNorthEast;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 default:
@@ -908,32 +1034,39 @@ else
             
         }
         
+        }
         else if (southArea)
         {
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. East, 2. North, 3. West");
+            Console.WriteLine("1. West | 2. North | 3. East");
             direction = int.Parse(Console.ReadLine()!);
             southArea = false;
 
             switch(direction)
             {
 
-                //Go East
+                //Go West
                 case 1:
-                    southEastArea = true;
-                    currentMap = mapSouthEast;
+                    southWestArea = true;
+                    currentMap = mapSouthWest;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 //Go North
                 case 2:
                     startPoint = true;
                     currentMap = mapStart;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 //Go West
                 case 3:
-                    southWestArea = true;
-                    currentMap = mapSouthWest;
+                    southEastArea = true;
+                    currentMap = mapSouthEast;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 default:
@@ -949,29 +1082,35 @@ else
         else if (eastArea)
         {
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. North, 2. South, 3. West");
+            Console.WriteLine("1. West | 2. North | 3. South");
             direction = int.Parse(Console.ReadLine()!);
             eastArea = false;
 
             switch(direction)
             {
 
-                //Go North
+                //Go West
                 case 1:
+                    startPoint = true;
+                    currentMap = mapStart;
+                    playerHealth -= healthDecay;
+
+                break;
+
+                //Go North
+                case 2:
                     northEastArea = true;
                     currentMap = mapNorthEast;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 //Go South
-                case 2:
+                case 3:
                     southEastArea = true;
                     currentMap = mapSouthEast;
-                break;
+                    playerHealth -= healthDecay;
 
-                //Go West
-                case 3:
-                    startPoint = true;
-                    currentMap = mapStart;
                 break;
 
                 default:
@@ -987,29 +1126,35 @@ else
         else if (westArea)
         {
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. East, 2. South, 3. North");
+            Console.WriteLine("1. North | 2. South | 3. East");
             direction = int.Parse(Console.ReadLine()!);
             westArea = false;
 
             switch(direction)
             {
 
-                //Go East
+                //Go North
                 case 1:
-                    startPoint = true;
-                    currentMap = mapStart;
+                    northWestArea = true;
+                    currentMap = mapNorthWest;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 //Go South
                 case 2:
                     southWestArea = true;
                     currentMap = mapSouthWest;
+                    playerHealth -= healthDecay;
+
                 break;
 
-                //Go North
+                //Go East
                 case 3:
-                    northWestArea = true;
-                    currentMap = mapNorthWest;
+                    startPoint = true;
+                    currentMap = mapStart;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 default:
@@ -1025,23 +1170,27 @@ else
         else if (northEastArea)
         {
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. South, 2. West");
+            Console.WriteLine("1. West | 2. South");
             direction = int.Parse(Console.ReadLine()!);
             northEastArea = false;
 
             switch(direction)
             {
 
-                //Go South
-                case 1:
-                    eastArea = true;
-                    currentMap = mapEast;
-                break;
-
                 //Go West
-                case 2:
+                case 1:
                     northArea = true;
                     currentMap = mapNorth;
+                    playerHealth -= healthDecay;
+
+                break;
+
+                //Go South
+                case 2:
+                    eastArea = true;
+                    currentMap = mapEast;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 default:
@@ -1057,28 +1206,33 @@ else
         else if (northWestArea)
         {
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. East, 2. South, 3. West");
+            Console.WriteLine("1. West | 2. South | 3. East");
             direction = int.Parse(Console.ReadLine()!);
             northWestArea = false;
 
             switch(direction)
             {
 
-                //Go East
+                //Go West
                 case 1:
-                    northArea = true;
-                    currentMap = mapNorth;
+                    pathArea = true;
+                    foundPath = true;
                 break;
 
                 //Go South
                 case 2:
                     westArea = true;
                     currentMap = mapWest;
+                    playerHealth -= healthDecay;
+
                 break;
 
-                //Go West
+                //Go East
                 case 3:
-                    pathArea = true;
+                    northArea = true;
+                    currentMap = mapNorth;
+                    playerHealth -= healthDecay;
+
                 break;
 
                 default:
@@ -1101,23 +1255,27 @@ else
             {
                 
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. East, 2. North");
+            Console.WriteLine("1. North | 2. East");
             direction = int.Parse(Console.ReadLine()!);
             southWestArea = false;
 
             switch(direction)
             {
 
-                //Go East
-                case 1:
-                    southArea = true;
-                    currentMap = mapSouth;
-                break;
-
                 //Go North
-                case 2:
+                case 1:
                     westArea = true;
                     currentMap = mapWest;
+                    playerHealth -= healthDecay;
+
+                break;
+
+                //Go East
+                case 2:
+                    southArea = true;
+                    currentMap = mapSouth;
+                    playerHealth -= healthDecay;
+
                 break;
 
 
@@ -1134,24 +1292,35 @@ else
 
         else if (southEastArea)
         {
+            if (!seChoice)
+            {
+                SouthEast();
+            }
+    else
+    {
+                
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. North, 2. West");
+            Console.WriteLine("1. West | 2. North");
             direction = int.Parse(Console.ReadLine()!);
             southEastArea = false;
 
             switch(direction)
             {
 
-                //Go North
-                case 1:
-                    eastArea = true;
-                    currentMap = mapEast;
-                break;
-
                 //Go West
-                case 2:
+                case 1:
                     southArea = true;
                     currentMap = mapSouth;
+                    playerHealth -= healthDecay;
+
+                break;
+
+                //Go North
+                case 2:
+                    eastArea = true;
+                    currentMap = mapEast;
+                    playerHealth -= healthDecay;
+
                 break;
 
 
@@ -1164,9 +1333,27 @@ else
             }
             
         }
+    }
 
     } 
 
+
+
+    if (playerDeath)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("You wandered for too long and died");
+        Console.ReadKey();
+    }
+
+    
+    if (foundPath)
+    {
+        Console.Clear();
+        Console.WriteLine("You found the path!");
+        Console.ReadKey();
+    }
 
     
 
