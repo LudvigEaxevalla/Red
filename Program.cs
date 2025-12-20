@@ -782,31 +782,62 @@ else
     Console.ReadKey();
     startPoint = true;
     deepForest = true;
-    bool swChoice = false;
-    bool nChoice = false;
-    bool seChoice = false;
+    bool mushroomDecision = false;
+    bool blueberryDecision = false;
+    bool appleDecision = false;
     int healthDecay = 6;
+    int appleDecay = 15;
+    int appleChance = 25;
+    int mushroomChance = 50;
+    int blueberryChance = 50;
 
-    void SouthWest()
+    void Apples()
     {
-        int swOption;
+        int applesOption;
         Console.Clear();
-        Console.ForegroundColor = ConsoleColor.DarkYellow;
-        Console.WriteLine(@"
-        You find some apples laying on the ground
-        They still look fresh enough to eat");
-        Console.WriteLine("1. Eat an apple\n2. Keep moving");
-        swOption = int.Parse(Console.ReadLine()!);
-
-        switch(swOption)
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        if (appleDecay >= 5)
         {
+            Console.WriteLine(@"
+            You find some fallen apples. They look fresh enough you think");
+        }
+        else if (appleDecay < 5)
+        {
+            Console.WriteLine(@"
+            You find some fallen apples. It looks like they've been here a while");
+        }
+
+        Console.WriteLine("1.Eat the apples 2. Keep moving");
+        applesOption = int.Parse(Console.ReadLine()!);
+
+        switch (applesOption)
+        {
+ 
             case 1:
+                int goodApple = 4;
+                int appleDice = rnd.Next(0,6);
                 Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("You eat the apples and feel much better than before");
-                playerHealth += 50;
-                swChoice = true;
-                southWestArea = true;
+                if (appleDecay >= 5)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("You eat the apples and feel much better than before");
+                    playerHealth += 50;    
+                }
+
+                else if (appleDecay < 5 && appleDice >= goodApple)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Even though the apples aren't fresh, they were good enough to eat and you feel better");
+                    playerHealth += 45;    
+                }
+
+                else if (appleDecay < 5 && appleDice < goodApple)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Theese apples must've been on the ground for too long. You dont feel so good about eating them");
+                    playerHealth -= 5;
+                }
+                appleDecision = true;
                 Console.ReadKey();
 
             break;
@@ -814,7 +845,7 @@ else
             case 2:
                 Console.Clear();
                 Console.WriteLine("You leave the apples behind");
-                swChoice = true;
+                appleDecision = true;
                 Console.ReadKey();
             break;
 
@@ -823,28 +854,29 @@ else
                 Console.ReadKey();
             break;
         }
+
     }
 
-    void SouthEast()
+   
+    void BlueBerries()
     {
-        int seOption;
+        int blueBerryOption;
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         Console.WriteLine(@"
-                You found blueberries!
-                Do you eat them?");
+        You found blueberries!
+        Do you eat them?");
         Console.WriteLine("1. Eat the blueberries\n2. Keep moving");
-        seOption = int.Parse(Console.ReadLine()!);
+        blueBerryOption = int.Parse(Console.ReadLine()!);
 
-        switch(seOption)
+        switch(blueBerryOption)
         {
             case 1:
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You eat the blueberries and feel somewhat than before");
                 playerHealth += 10;
-                seChoice = true;
-                southEastArea = true;
+                blueberryDecision = true;
                 Console.ReadKey();
 
             break;
@@ -852,7 +884,7 @@ else
             case 2:
                 Console.Clear();
                 Console.WriteLine("You leave the blueberries behind");
-                seChoice = true;
+                blueberryDecision = true;
                 Console.ReadKey();
             break;
 
@@ -863,9 +895,10 @@ else
         }
     }
 
-        void North()
+
+void Mushrooms()
     {
-        int nOption;
+        int mushroomOption;
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         if (hadMushroomsBefore)
@@ -873,17 +906,17 @@ else
             Console.WriteLine(@"
             You find the same Red Mushrooms you ate earlier, maybe it won't be so bad this time?");
             Console.WriteLine("1. Eat the mushrooms\n2. Use common sense");
-            nOption = int.Parse(Console.ReadLine()!);         
+            mushroomOption = int.Parse(Console.ReadLine()!);         
         }
         else
         {
             Console.WriteLine(@"
             You find the same Red Mushrooms you saw before, will you try them now?");
             Console.WriteLine("1. Eat the mushrooms\n2. Leave them");
-            nOption = int.Parse(Console.ReadLine()!);     
+            mushroomOption = int.Parse(Console.ReadLine()!);     
         }
 
-        switch(nOption)
+        switch(mushroomOption)
         {
             case 1:
                 Console.Clear();
@@ -898,8 +931,7 @@ else
                     Console.WriteLine("That wasn't a good idea... You feel worse than before");
                 }
                 playerHealth -= 10;
-                nChoice = true;
-                northArea = true;
+                mushroomDecision = true;
                 Console.ReadKey();
 
             break;
@@ -907,7 +939,7 @@ else
             case 2:
                 Console.Clear();
                 Console.WriteLine("You leave the mushrooms behind");
-                nChoice = true;
+                mushroomDecision = true;
                 Console.ReadKey();
             break;
 
@@ -930,6 +962,7 @@ else
         if (showTips)
         {
             Console.WriteLine("Health: " + playerHealth); 
+            Console.WriteLine("Apple Decay: " + appleDecay);
         }
         Console.WriteLine(currentMap + "\n\n");
         if (startPoint)
@@ -947,6 +980,7 @@ else
                     westArea = true;
                     currentMap = mapWest;
                     playerHealth -= healthDecay;
+                    appleDecay--;
                 break;
                 
                 //Go North
@@ -954,6 +988,7 @@ else
                     northArea = true;
                     currentMap = mapNorth;
                     playerHealth -= healthDecay;
+                    appleDecay--;
 
                 break;
 
@@ -962,6 +997,7 @@ else
                     southArea = true;
                     currentMap = mapSouth;
                     playerHealth -= healthDecay;
+                    appleDecay--;
 
                 break;
 
@@ -970,6 +1006,8 @@ else
                     eastArea = true;
                     currentMap = mapEast;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -985,9 +1023,10 @@ else
 
         else if (northArea)
         {
-            if (!nChoice)
+            dice = rnd.Next(1,100);
+            if (!mushroomDecision && dice < mushroomChance)
             {
-                North();
+                Mushrooms();
             }
     else
         {
@@ -1005,6 +1044,8 @@ else
                     northWestArea = true;
                     currentMap = mapNorthWest;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1013,6 +1054,8 @@ else
                     startPoint = true;
                     currentMap = mapStart;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1021,6 +1064,8 @@ else
                     northEastArea = true;
                     currentMap = mapNorthEast;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1037,6 +1082,15 @@ else
         }
         else if (southArea)
         {
+            dice = rnd.Next(1,100);
+
+            if (!mushroomDecision && dice < mushroomChance)
+            {
+                Mushrooms();
+            }
+        else
+        {
+                
             Console.WriteLine("Wich way do you go?");
             Console.WriteLine("1. West | 2. North | 3. East");
             direction = int.Parse(Console.ReadLine()!);
@@ -1050,6 +1104,8 @@ else
                     southWestArea = true;
                     currentMap = mapSouthWest;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1058,6 +1114,8 @@ else
                     startPoint = true;
                     currentMap = mapStart;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1066,6 +1124,8 @@ else
                     southEastArea = true;
                     currentMap = mapSouthEast;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1077,6 +1137,7 @@ else
 
             }
             
+        }
         }
         
         else if (eastArea)
@@ -1094,6 +1155,8 @@ else
                     startPoint = true;
                     currentMap = mapStart;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1102,6 +1165,8 @@ else
                     northEastArea = true;
                     currentMap = mapNorthEast;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1110,6 +1175,8 @@ else
                     southEastArea = true;
                     currentMap = mapSouthEast;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1138,6 +1205,8 @@ else
                     northWestArea = true;
                     currentMap = mapNorthWest;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1146,6 +1215,8 @@ else
                     southWestArea = true;
                     currentMap = mapSouthWest;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1154,6 +1225,8 @@ else
                     startPoint = true;
                     currentMap = mapStart;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1169,88 +1242,116 @@ else
 
         else if (northEastArea)
         {
-            Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. West | 2. South");
-            direction = int.Parse(Console.ReadLine()!);
-            northEastArea = false;
-
-            switch(direction)
+            dice = rnd.Next(0,100);
+            if (!blueberryDecision && dice < blueberryChance)
             {
-
-                //Go West
-                case 1:
-                    northArea = true;
-                    currentMap = mapNorth;
-                    playerHealth -= healthDecay;
-
-                break;
-
-                //Go South
-                case 2:
-                    eastArea = true;
-                    currentMap = mapEast;
-                    playerHealth -= healthDecay;
-
-                break;
-
-                default:
-                    Console.WriteLine("try again");
-                    northEastArea = true;
-                break;
-
-
+                BlueBerries();
             }
+                else
+                {
+                    
+                    Console.WriteLine("Wich way do you go?");
+                    Console.WriteLine("1. West | 2. South");
+                    direction = int.Parse(Console.ReadLine()!);
+                    northEastArea = false;
+
+                    switch(direction)
+                    {
+
+                        //Go West
+                        case 1:
+                            northArea = true;
+                            currentMap = mapNorth;
+                            playerHealth -= healthDecay;
+                            appleDecay--;
+
+
+                        break;
+
+                        //Go South
+                        case 2:
+                            eastArea = true;
+                            currentMap = mapEast;
+                            playerHealth -= healthDecay;
+                            appleDecay--;
+
+
+                        break;
+
+                        default:
+                            Console.WriteLine("try again");
+                            northEastArea = true;
+                        break;
+
+
+                    }
+                }
             
         }
 
         else if (northWestArea)
         {
-            Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. West | 2. South | 3. East");
-            direction = int.Parse(Console.ReadLine()!);
-            northWestArea = false;
-
-            switch(direction)
+            dice = rnd.Next(0,100);
+            if (!appleDecision && dice < appleChance)
             {
+                Apples();
+            } 
+                else
+                {
+                    
+                    Console.WriteLine("Wich way do you go?");
+                    Console.WriteLine("1. West | 2. South | 3. East");
+                    direction = int.Parse(Console.ReadLine()!);
+                    northWestArea = false;
 
-                //Go West
-                case 1:
-                    pathArea = true;
-                    foundPath = true;
-                break;
+                    switch(direction)
+                    {
 
-                //Go South
-                case 2:
-                    westArea = true;
-                    currentMap = mapWest;
-                    playerHealth -= healthDecay;
+                        //Go West
+                        case 1:
+                            pathArea = true;
+                            foundPath = true;
+                        break;
 
-                break;
-
-                //Go East
-                case 3:
-                    northArea = true;
-                    currentMap = mapNorth;
-                    playerHealth -= healthDecay;
-
-                break;
-
-                default:
-                    Console.WriteLine("try again");
-                    northWestArea = true;
-                break;
+                        //Go South
+                        case 2:
+                            westArea = true;
+                            currentMap = mapWest;
+                            playerHealth -= healthDecay;
+                            appleDecay--;
 
 
-            }
+                        break;
+
+                        //Go East
+                        case 3:
+                            northArea = true;
+                            currentMap = mapNorth;
+                            playerHealth -= healthDecay;
+                            appleDecay--;
+
+
+                        break;
+
+                        default:
+                            Console.WriteLine("try again");
+                            northWestArea = true;
+                        break;
+
+
+                    }
+                }
             
         }
 
         else if (southWestArea)
         {
-            if (!swChoice)
+            dice = rnd.Next(0,100);
+            if (!appleDecision && dice < appleChance)
             {
-                SouthWest();
+                Apples();
             }
+
             else
             {
                 
@@ -1267,6 +1368,8 @@ else
                     westArea = true;
                     currentMap = mapWest;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1275,6 +1378,8 @@ else
                     southArea = true;
                     currentMap = mapSouth;
                     playerHealth -= healthDecay;
+                    appleDecay--;
+
 
                 break;
 
@@ -1292,9 +1397,10 @@ else
 
         else if (southEastArea)
         {
-            if (!seChoice)
+            dice = rnd.Next(0,100);
+            if (!blueberryDecision && dice < blueberryChance)
             {
-                SouthEast();
+                BlueBerries();
             }
     else
     {
@@ -1312,6 +1418,7 @@ else
                     southArea = true;
                     currentMap = mapSouth;
                     playerHealth -= healthDecay;
+                    appleDecay--;
 
                 break;
 
@@ -1320,6 +1427,7 @@ else
                     eastArea = true;
                     currentMap = mapEast;
                     playerHealth -= healthDecay;
+                    appleDecay--;
 
                 break;
 
@@ -1345,6 +1453,7 @@ else
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("You wandered for too long and died");
         Console.ReadKey();
+        PlayerDeath();
     }
 
     
@@ -1353,6 +1462,21 @@ else
         Console.Clear();
         Console.WriteLine("You found the path!");
         Console.ReadKey();
+
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine(@"
+
+  _____ ___ _   _    _    _       ____  _   _  _____        ______   _____        ___   _ 
+ |  ___|_ _| \ | |  / \  | |     / ___|| | | |/ _ \ \      / /  _ \ / _ \ \      / / \ | |
+ | |_   | ||  \| | / _ \ | |     \___ \| |_| | | | \ \ /\ / /| | | | | | \ \ /\ / /|  \| |
+ |  _|  | || |\  |/ ___ \| |___   ___) |  _  | |_| |\ V  V / | |_| | |_| |\ V  V / | |\  |
+ |_|   |___|_| \_/_/   \_\_____| |____/|_| |_|\___/  \_/\_/  |____/ \___/  \_/\_/  |_| \_|
+
+
+        ");
+
+
     }
 
     
