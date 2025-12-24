@@ -3,6 +3,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.Xml;
 
 //Console
 
@@ -17,7 +18,7 @@ int playerDamage = rnd.Next(pMinDamage,pMaxDamage);
 int playerCrit = rnd.Next(10,15);
 double playerSpeed = 20;
 double playerWeight = 0;
-int playerAccuracy = 75;
+int playerAccuracy = 70;
 string[] currentWeapon = {"Pocket Knife", "Hammer", "Kitchen Knife", "AK47"};
 string selectedWeapon = "";
 
@@ -27,7 +28,7 @@ int wolfHealth = 500;
 int wMinDmg = 20;
 int wMaxDmg = 40;
 int wolfDamage = rnd.Next(wMinDmg,wMaxDmg);
-int wolfSpeed = 50;
+// int wolfSpeed = 50;
 int wolfAccuracy = rnd.Next(10,30);
 bool wolfDeath = false;
 
@@ -36,7 +37,7 @@ int dice= rnd.Next(1,100);
 bool showTips = false;
 string choice = "";
 bool hasChosenTip = false;
-bool godMode = false;
+// bool godMode = false;
 
 //Grandma var
 
@@ -81,7 +82,7 @@ int battleChoice = 0;
 double runningOdds = 0;
 
 //Deep forest
-int direction;
+//int direction;
 bool deepForest = false;
 
 
@@ -234,6 +235,9 @@ string currentMap = mapStart;
 5. Grandmas house
 
 */
+
+ConsoleKeyInfo keyInfo;
+keyInfo = Console.ReadKey(true);
 
 
 void PlayerDeath() 
@@ -828,14 +832,14 @@ else
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Even though the apples aren't fresh, they were good enough to eat and you feel better");
-                    playerHealth += 45;    
+                    playerHealth += 30;    
                 }
 
                 else if (appleDecay < 5 && appleDice < goodApple)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Theese apples must've been on the ground for too long. You dont feel so good about eating them");
-                    playerHealth -= 5;
+                    playerHealth -= 10;
                 }
                 appleDecision = true;
                 Console.ReadKey();
@@ -962,21 +966,27 @@ void Mushrooms()
         if (showTips)
         {
             Console.WriteLine("Health: " + playerHealth); 
-            Console.WriteLine("Apple Decay: " + appleDecay);
+           // Console.WriteLine("Apple Decay: " + appleDecay);
         }
         Console.WriteLine(currentMap + "\n\n");
         if (startPoint)
         {
 
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. West | 2. North | 3. South | 4. East");
-            direction = int.Parse(Console.ReadLine()!);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n(Use the arrows on your keyboard to move around)");
+            Console.ResetColor();
+
+            //Console.WriteLine("1. West | 2. North | 3. South | 4. East");
+            //direction = int.Parse(Console.ReadLine()!);
+            keyInfo = Console.ReadKey();
             startPoint = false;
 
-            switch(direction)
+
+            switch(keyInfo.Key)
             {
                 //Go West
-                case 1:
+                case ConsoleKey.LeftArrow:
                     westArea = true;
                     currentMap = mapWest;
                     playerHealth -= healthDecay;
@@ -984,7 +994,7 @@ void Mushrooms()
                 break;
                 
                 //Go North
-                case 2:           
+                case ConsoleKey.UpArrow:          
                     northArea = true;
                     currentMap = mapNorth;
                     playerHealth -= healthDecay;
@@ -993,7 +1003,7 @@ void Mushrooms()
                 break;
 
                 //Go South
-                case 3:
+                case ConsoleKey.DownArrow:
                     southArea = true;
                     currentMap = mapSouth;
                     playerHealth -= healthDecay;
@@ -1002,7 +1012,7 @@ void Mushrooms()
                 break;
 
                 //Go East
-                case 4:
+                case ConsoleKey.RightArrow:
                     eastArea = true;
                     currentMap = mapEast;
                     playerHealth -= healthDecay;
@@ -1032,15 +1042,16 @@ void Mushrooms()
         {
                 
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. West | 2. South | 3. East");
-            direction = int.Parse(Console.ReadLine()!);
+            //Console.WriteLine("1. West | 2. South | 3. East");
+            //direction = int.Parse(Console.ReadLine()!);
+            keyInfo = Console.ReadKey();
             northArea = false;
 
-            switch(direction)
+            switch(keyInfo.Key)
             {
 
                 //Go West
-                case 1:
+                case ConsoleKey.LeftArrow:
                     northWestArea = true;
                     currentMap = mapNorthWest;
                     playerHealth -= healthDecay;
@@ -1050,7 +1061,7 @@ void Mushrooms()
                 break;
 
                 //Go South
-                case 2:
+                case ConsoleKey.DownArrow:
                     startPoint = true;
                     currentMap = mapStart;
                     playerHealth -= healthDecay;
@@ -1060,7 +1071,7 @@ void Mushrooms()
                 break;
 
                 //Go East
-                case 3:
+                case ConsoleKey.UpArrow:
                     northEastArea = true;
                     currentMap = mapNorthEast;
                     playerHealth -= healthDecay;
@@ -1092,15 +1103,16 @@ void Mushrooms()
         {
                 
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. West | 2. North | 3. East");
-            direction = int.Parse(Console.ReadLine()!);
+            //Console.WriteLine("1. West | 2. North | 3. East");
+            //direction = int.Parse(Console.ReadLine()!);
+            keyInfo = Console.ReadKey();
             southArea = false;
 
-            switch(direction)
+            switch(keyInfo.Key)
             {
 
                 //Go West
-                case 1:
+                case ConsoleKey.LeftArrow:
                     southWestArea = true;
                     currentMap = mapSouthWest;
                     playerHealth -= healthDecay;
@@ -1110,7 +1122,7 @@ void Mushrooms()
                 break;
 
                 //Go North
-                case 2:
+                case ConsoleKey.UpArrow:
                     startPoint = true;
                     currentMap = mapStart;
                     playerHealth -= healthDecay;
@@ -1119,8 +1131,8 @@ void Mushrooms()
 
                 break;
 
-                //Go West
-                case 3:
+                //Go East
+                case ConsoleKey.RightArrow:
                     southEastArea = true;
                     currentMap = mapSouthEast;
                     playerHealth -= healthDecay;
@@ -1143,15 +1155,16 @@ void Mushrooms()
         else if (eastArea)
         {
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. West | 2. North | 3. South");
-            direction = int.Parse(Console.ReadLine()!);
+            //Console.WriteLine("1. West | 2. North | 3. South");
+            //direction = int.Parse(Console.ReadLine()!);
+            keyInfo = Console.ReadKey();
             eastArea = false;
 
-            switch(direction)
+            switch(keyInfo.Key)
             {
 
                 //Go West
-                case 1:
+                case ConsoleKey.LeftArrow:
                     startPoint = true;
                     currentMap = mapStart;
                     playerHealth -= healthDecay;
@@ -1161,7 +1174,7 @@ void Mushrooms()
                 break;
 
                 //Go North
-                case 2:
+                case ConsoleKey.UpArrow:
                     northEastArea = true;
                     currentMap = mapNorthEast;
                     playerHealth -= healthDecay;
@@ -1171,7 +1184,7 @@ void Mushrooms()
                 break;
 
                 //Go South
-                case 3:
+                case ConsoleKey.DownArrow:
                     southEastArea = true;
                     currentMap = mapSouthEast;
                     playerHealth -= healthDecay;
@@ -1193,15 +1206,16 @@ void Mushrooms()
         else if (westArea)
         {
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. North | 2. South | 3. East");
-            direction = int.Parse(Console.ReadLine()!);
+           // Console.WriteLine("1. North | 2. South | 3. East");
+           // direction = int.Parse(Console.ReadLine()!);
+            keyInfo = Console.ReadKey();
             westArea = false;
 
-            switch(direction)
+            switch(keyInfo.Key)
             {
 
                 //Go North
-                case 1:
+                case ConsoleKey.UpArrow:
                     northWestArea = true;
                     currentMap = mapNorthWest;
                     playerHealth -= healthDecay;
@@ -1211,7 +1225,7 @@ void Mushrooms()
                 break;
 
                 //Go South
-                case 2:
+                case ConsoleKey.DownArrow:
                     southWestArea = true;
                     currentMap = mapSouthWest;
                     playerHealth -= healthDecay;
@@ -1221,7 +1235,7 @@ void Mushrooms()
                 break;
 
                 //Go East
-                case 3:
+                case ConsoleKey.RightArrow:
                     startPoint = true;
                     currentMap = mapStart;
                     playerHealth -= healthDecay;
@@ -1251,15 +1265,16 @@ void Mushrooms()
                 {
                     
                     Console.WriteLine("Wich way do you go?");
-                    Console.WriteLine("1. West | 2. South");
-                    direction = int.Parse(Console.ReadLine()!);
+                   // Console.WriteLine("1. West | 2. South");
+                   // direction = int.Parse(Console.ReadLine()!);
+                    keyInfo = Console.ReadKey();
                     northEastArea = false;
 
-                    switch(direction)
+                    switch(keyInfo.Key)
                     {
 
                         //Go West
-                        case 1:
+                        case ConsoleKey.LeftArrow:
                             northArea = true;
                             currentMap = mapNorth;
                             playerHealth -= healthDecay;
@@ -1269,7 +1284,7 @@ void Mushrooms()
                         break;
 
                         //Go South
-                        case 2:
+                        case ConsoleKey.DownArrow:
                             eastArea = true;
                             currentMap = mapEast;
                             playerHealth -= healthDecay;
@@ -1300,21 +1315,22 @@ void Mushrooms()
                 {
                     
                     Console.WriteLine("Wich way do you go?");
-                    Console.WriteLine("1. West | 2. South | 3. East");
-                    direction = int.Parse(Console.ReadLine()!);
+                  //  Console.WriteLine("1. West | 2. South | 3. East");
+                  //  direction = int.Parse(Console.ReadLine()!);
+                    keyInfo = Console.ReadKey();
                     northWestArea = false;
 
-                    switch(direction)
+                    switch(keyInfo.Key)
                     {
 
                         //Go West
-                        case 1:
+                        case ConsoleKey.LeftArrow:
                             pathArea = true;
                             foundPath = true;
                         break;
 
                         //Go South
-                        case 2:
+                        case ConsoleKey.DownArrow:
                             westArea = true;
                             currentMap = mapWest;
                             playerHealth -= healthDecay;
@@ -1324,7 +1340,7 @@ void Mushrooms()
                         break;
 
                         //Go East
-                        case 3:
+                        case ConsoleKey.RightArrow:
                             northArea = true;
                             currentMap = mapNorth;
                             playerHealth -= healthDecay;
@@ -1356,15 +1372,16 @@ void Mushrooms()
             {
                 
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. North | 2. East");
-            direction = int.Parse(Console.ReadLine()!);
+           // Console.WriteLine("1. North | 2. East");
+           // direction = int.Parse(Console.ReadLine()!);
+            keyInfo = Console.ReadKey();
             southWestArea = false;
 
-            switch(direction)
+            switch(keyInfo.Key)
             {
 
                 //Go North
-                case 1:
+                case ConsoleKey.UpArrow:
                     westArea = true;
                     currentMap = mapWest;
                     playerHealth -= healthDecay;
@@ -1374,7 +1391,7 @@ void Mushrooms()
                 break;
 
                 //Go East
-                case 2:
+                case ConsoleKey.RightArrow:
                     southArea = true;
                     currentMap = mapSouth;
                     playerHealth -= healthDecay;
@@ -1406,15 +1423,16 @@ void Mushrooms()
     {
                 
             Console.WriteLine("Wich way do you go?");
-            Console.WriteLine("1. West | 2. North");
-            direction = int.Parse(Console.ReadLine()!);
+           // Console.WriteLine("1. West | 2. North");
+           // direction = int.Parse(Console.ReadLine()!);
+            keyInfo = Console.ReadKey();
             southEastArea = false;
 
-            switch(direction)
+            switch(keyInfo.Key)
             {
 
                 //Go West
-                case 1:
+                case ConsoleKey.LeftArrow:
                     southArea = true;
                     currentMap = mapSouth;
                     playerHealth -= healthDecay;
@@ -1423,7 +1441,7 @@ void Mushrooms()
                 break;
 
                 //Go North
-                case 2:
+                case ConsoleKey.UpArrow:
                     eastArea = true;
                     currentMap = mapEast;
                     playerHealth -= healthDecay;
