@@ -481,7 +481,7 @@ while (battle)
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("\n1. Attack the wolf with the weapon you chose at the beginning of the game.");
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("There is always a chance that you will miss the wolf when attacking in wich case it will be the wolfs turn");
+        Console.WriteLine("There is always a chance that you will miss the wolf when attacking in Which case it will be the wolfs turn");
         Console.WriteLine("If you hit the wolf, the wolf will become a bit slower and your chances of running away increses \n");
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("2. You can try to run away from the wolf.");
@@ -972,7 +972,7 @@ void Mushrooms()
         if (startPoint)
         {
 
-            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("Which way do you go?");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n(Use the arrows on your keyboard to move around)");
             Console.ResetColor();
@@ -1041,7 +1041,7 @@ void Mushrooms()
     else
         {
                 
-            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("Which way do you go?");
             //Console.WriteLine("1. West | 2. South | 3. East");
             //direction = int.Parse(Console.ReadLine()!);
             keyInfo = Console.ReadKey();
@@ -1102,7 +1102,7 @@ void Mushrooms()
         else
         {
                 
-            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("Which way do you go?");
             //Console.WriteLine("1. West | 2. North | 3. East");
             //direction = int.Parse(Console.ReadLine()!);
             keyInfo = Console.ReadKey();
@@ -1154,7 +1154,7 @@ void Mushrooms()
         
         else if (eastArea)
         {
-            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("Which way do you go?");
             //Console.WriteLine("1. West | 2. North | 3. South");
             //direction = int.Parse(Console.ReadLine()!);
             keyInfo = Console.ReadKey();
@@ -1205,7 +1205,7 @@ void Mushrooms()
             
         else if (westArea)
         {
-            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("Which way do you go?");
            // Console.WriteLine("1. North | 2. South | 3. East");
            // direction = int.Parse(Console.ReadLine()!);
             keyInfo = Console.ReadKey();
@@ -1264,7 +1264,7 @@ void Mushrooms()
                 else
                 {
                     
-                    Console.WriteLine("Wich way do you go?");
+                    Console.WriteLine("Which way do you go?");
                    // Console.WriteLine("1. West | 2. South");
                    // direction = int.Parse(Console.ReadLine()!);
                     keyInfo = Console.ReadKey();
@@ -1314,7 +1314,7 @@ void Mushrooms()
                 else
                 {
                     
-                    Console.WriteLine("Wich way do you go?");
+                    Console.WriteLine("Which way do you go?");
                   //  Console.WriteLine("1. West | 2. South | 3. East");
                   //  direction = int.Parse(Console.ReadLine()!);
                     keyInfo = Console.ReadKey();
@@ -1371,7 +1371,7 @@ void Mushrooms()
             else
             {
                 
-            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("Which way do you go?");
            // Console.WriteLine("1. North | 2. East");
            // direction = int.Parse(Console.ReadLine()!);
             keyInfo = Console.ReadKey();
@@ -1422,7 +1422,7 @@ void Mushrooms()
     else
     {
                 
-            Console.WriteLine("Wich way do you go?");
+            Console.WriteLine("Which way do you go?");
            // Console.WriteLine("1. West | 2. North");
            // direction = int.Parse(Console.ReadLine()!);
             keyInfo = Console.ReadKey();
