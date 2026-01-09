@@ -19,7 +19,7 @@ int playerCrit = rnd.Next(10,15);
 double playerSpeed = 20;
 double playerWeight = 0;
 int playerAccuracy = 70;
-string[] currentWeapon = {"Pocket Knife", "Hammer", "Kitchen Knife", "AK47"};
+string[] currentWeapon = {"Knife", "Axe", "Dads Rifle", "Butcher Knife", "AK47"};
 string selectedWeapon = "";
 
 //Wolf var
@@ -44,8 +44,9 @@ bool hasChosenTip = false;
 int grandmaHealth = 3;
 
 //Weapon damage
-int pocketKnifeDamage = 5;
-int hammerDamage = 8;
+int knifeDamage = 5;
+int axeDamage = 12;
+int rifleDamage = 8;
 int ak47Damage = 1000;
 
 //Weapon Choices
@@ -58,8 +59,9 @@ int foodChoice;
 bool hasChosenFoodFirst = false;
 
 //Weigth stuff
-double pocketKnifeWeight = 2;
-double hammerWeight = 5;
+double knifeWeight = 2;
+double axeWeight = 5;
+double rifleWeight = 15;
 double grandmaFoodWeight = 5;
 
 
@@ -300,21 +302,41 @@ Console.Clear();
                        
 Console.ResetColor();
 
-Console.WriteLine("\n\n-- Just a bunch of text here that will welcome the player and set up the story.");
-Console.WriteLine("Your grandma is sick blah blah blah bring her food blah blah look out for dangers.");
-Console.WriteLine("Choose between a pocket knife and a hammer before you leave, just in case. --");
-
-
+Console.WriteLine(@"It’s the end of the week, early morning, when your mother calls out to you from the kitchen. 
+You take a break from tending to the flames to go see what she wants.");
+Console.WriteLine("");
+Console.ForegroundColor = ConsoleColor.DarkCyan;
+Console.Write(@"“Be a dear and take that basket to Memaw’s place.”");
+Console.ResetColor();
+Console.WriteLine(" your mother instructs without turning her attention away from the sink,");
+Console.ForegroundColor = ConsoleColor.DarkCyan;
+Console.WriteLine("“There’s heavy snowfall coming and I don’t want her to run out of food out there.“");
+Console.ResetColor();
+Console.ReadKey();
+Console.WriteLine("");
+Console.WriteLine(@"You look to where your mother points, a basket filled with bread, and a couple of pies rests on the table. 
+As you take the basket with a small huff, it’s heavier than you are used to.
+ “Okay.” you say as you move to the front door.");
+Console.WriteLine("");
+Console.BackgroundColor = ConsoleColor.DarkGray;
+Console.ForegroundColor = ConsoleColor.DarkCyan;
+Console.WriteLine(@"“And be careful out there! Stay in the path, stay out of danger.“");
+Console.ResetColor();
+Console.WriteLine("");
+Console.WriteLine("You hum and nod to yourself, you should grab yourself a weapon before heading off.");
+Console.ReadKey();
 isCarryingGrandmasFood = true;
 
 if (isCarryingGrandmasFood)
 {
     playerWeight += grandmaFoodWeight;
 }
+
+/*
 else
 {
     playerWeight -= grandmaFoodWeight;
-}
+} */
 
 runningOdds -= playerWeight;
 
@@ -322,8 +344,19 @@ runningOdds -= playerWeight;
 
 while (!hasChosenbeginningWeapon)
 {
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine("\n   What do you choose? \n1. Pocket Knife\n2. Hammer");
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write(@"Taking a knife with you sounds good, you think as you shrug your red winter cloak on, but then you glance at the door. 
+On the side of it, where the shoes usually go, is the");
+    Console.ForegroundColor = ConsoleColor.DarkRed;
+    Console.Write(" axe ");
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("your father used to chop wood with yesterday.");
+    Console.ResetColor();
+    Console.WriteLine("");
+    Console.WriteLine("1. “Yeah, I’ll grab a knife.”");
+    Console.WriteLine("2. “I’ll take dad’s axe instead.”");
+
     beginningWeaponChoice = int.Parse(Console.ReadLine()!);
 
 
@@ -334,7 +367,7 @@ if (beginningWeaponChoice == 1337)
         pMaxDamage += ak47Damage;
         playerAccuracy = 100;
         hasChosenbeginningWeapon = true;
-        runningOdds = 150;
+        runningOdds = 101;
     }
     
 
@@ -346,25 +379,27 @@ else if (beginningWeaponChoice <1 || beginningWeaponChoice > 2 && beginningWeapo
 else if (beginningWeaponChoice == 1)
 {
     selectedWeapon = currentWeapon[0];
-    pMinDamage += pocketKnifeDamage;
-    pMaxDamage += pocketKnifeDamage;
-    playerWeight += pocketKnifeWeight;
+    pMinDamage += knifeDamage;
+    pMaxDamage += knifeDamage;
+    playerWeight += knifeWeight;
     playerAccuracy += 10;
-    runningOdds -= playerWeight;
     //playerSpeed -= playerWeight;
     hasChosenbeginningWeapon = true;
+    Console.WriteLine("As you come to a decision, the knife feels secure in your hand");
+    Console.ReadKey();
 }
 
 else if (beginningWeaponChoice == 2)
 {
     selectedWeapon = currentWeapon[1];
-    pMinDamage += hammerDamage;
-    pMaxDamage += hammerDamage;
-    playerWeight += hammerWeight;
-    runningOdds -= playerWeight;
+    pMinDamage += axeDamage;
+    pMaxDamage += axeDamage;
+    playerWeight += axeWeight;
     playerAccuracy -= 5;
     //playerSpeed -= playerWeight;
     hasChosenbeginningWeapon = true;
+    Console.WriteLine("As you come to a decision, the axe is heavy but sturdy in your grip, though you have to use both hands for it.");
+    Console.ReadKey();
 }
 
 }
@@ -376,8 +411,49 @@ Console.WriteLine(playerHealth);
 Console.ReadKey(); */ 
 
 Console.Clear();
-Console.ForegroundColor = ConsoleColor.White;
+Console.WriteLine(@"Your eyes slide over to the fireplace. On top of the mantle, resting easy, is your father’s old hunting rifle.
 
+You could grab that instead.
+");
+
+int takeRifle = 0;
+bool tookRifle = false;
+
+Console.WriteLine("1. “Bullets are better than a blade, I’ll take it.”");
+Console.Write("1. “No, I will stick with my ”");
+Console.WriteLine(selectedWeapon);
+takeRifle = int.Parse(Console.ReadLine()!);
+
+if (takeRifle < 1 || takeRifle > 2)
+{
+    Console.WriteLine("Invalid option, try again");
+} 
+
+else if (takeRifle == 1)
+{
+    tookRifle = true;
+    if (selectedWeapon == currentWeapon[0])
+    {
+        playerWeight -= knifeWeight;
+        playerDamage -= knifeDamage;
+    }
+    else if (selectedWeapon == currentWeapon[1])
+    {
+        playerWeight -= axeWeight;
+        playerDamage -= knifeDamage;
+    }
+    selectedWeapon = currentWeapon[2];
+    playerWeight += rifleWeight;
+    playerDamage += rifleDamage;
+}
+
+else if (takeRifle == 2)
+{
+    tookRifle = false;
+}
+runningOdds -= playerWeight;
+
+Console.Clear();
 //--FOREST PART 1--//
 Console.ForegroundColor = ConsoleColor.Green;
  Console.WriteLine(" _______ _    _ ______   ______ ____  _____  ______  _____ _______");
@@ -1493,6 +1569,10 @@ void Mushrooms()
 
 
         ");
+        Console.ResetColor();
+        Console.BackgroundColor = ConsoleColor.DarkRed;
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("Blah blah blah REVENGE! blah blah");
 
 
     }

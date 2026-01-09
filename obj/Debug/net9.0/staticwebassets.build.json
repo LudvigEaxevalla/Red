@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "lfZgTTCPq/2FftlMDS1paAQtGRHWrlivMF0H9VWX6hM=",
-  "Source": "RedGame",
-  "BasePath": "_content/RedGame",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"iBfN+4yzuAuKEz0ilPoYtimqVOoDAs21Y4hqUVb56VQ=","Source":"RedGame","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
