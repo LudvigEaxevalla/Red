@@ -106,6 +106,9 @@ int x = 0;
 int y = 0;
 int position = x+y;
 
+int takeRifle = 0;
+bool tookRifle = false;
+
 
 //Maps     //Arrows - → ↑ ← ↓
 
@@ -302,24 +305,28 @@ Console.Clear();
                        
 Console.ResetColor();
 
-Console.WriteLine(@"It’s the end of the week, early morning, when your mother calls out to you from the kitchen. 
+Console.WriteLine(@"It's the end of the week, early morning, when your mother calls out to you from the kitchen. 
 You take a break from tending to the flames to go see what she wants.");
 Console.WriteLine("");
 Console.ForegroundColor = ConsoleColor.DarkCyan;
-Console.Write(@"“Be a dear and take that basket to Memaw’s place.”");
+Console.Write(@"“Be a dear and take that basket to grandmother's place.”");
 Console.ResetColor();
 Console.WriteLine(" your mother instructs without turning her attention away from the sink,");
 Console.ForegroundColor = ConsoleColor.DarkCyan;
-Console.WriteLine("“There’s heavy snowfall coming and I don’t want her to run out of food out there.“");
+Console.WriteLine("“There's heavy snowfall coming and I don't want her to run out of food out there.“");
 Console.ResetColor();
 Console.ReadKey();
 Console.WriteLine("");
-Console.WriteLine(@"You look to where your mother points, a basket filled with bread, and a couple of pies rests on the table. 
-As you take the basket with a small huff, it’s heavier than you are used to.
- “Okay.” you say as you move to the front door.");
+Console.Write(@"You look to where your mother points, a basket filled with bread, and a couple of pies rests on the table. 
+As you take the basket with a small huff, it's heavier than you are used to.");
+Console.ForegroundColor = ConsoleColor.Red;
+Console.Write(" “Okay.” ");
+Console.ResetColor();
+Console.Write("you say as you move to the front door.");
 Console.WriteLine("");
-Console.BackgroundColor = ConsoleColor.DarkGray;
-Console.ForegroundColor = ConsoleColor.DarkCyan;
+Console.WriteLine("");
+Console.BackgroundColor = ConsoleColor.Red;
+Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine(@"“And be careful out there! Stay in the path, stay out of danger.“");
 Console.ResetColor();
 Console.WriteLine("");
@@ -354,8 +361,8 @@ On the side of it, where the shoes usually go, is the");
     Console.WriteLine("your father used to chop wood with yesterday.");
     Console.ResetColor();
     Console.WriteLine("");
-    Console.WriteLine("1. “Yeah, I’ll grab a knife.”");
-    Console.WriteLine("2. “I’ll take dad’s axe instead.”");
+    Console.WriteLine("(1) “Yeah, I'll grab a knife.”");
+    Console.WriteLine("(2) “I'll take dad's axe instead.”");
 
     beginningWeaponChoice = int.Parse(Console.ReadLine()!);
 
@@ -373,7 +380,7 @@ if (beginningWeaponChoice == 1337)
 
 else if (beginningWeaponChoice <1 || beginningWeaponChoice > 2 && beginningWeaponChoice != 1337) 
     {
-        Console.WriteLine("You can only choose between 1 and 2. Try again");
+        Console.WriteLine("You can only choose between (1) and (2). Try again");
     }  
 
 else if (beginningWeaponChoice == 1)
@@ -411,17 +418,16 @@ Console.WriteLine(playerHealth);
 Console.ReadKey(); */ 
 
 Console.Clear();
-Console.WriteLine(@"Your eyes slide over to the fireplace. On top of the mantle, resting easy, is your father’s old hunting rifle.
+Console.WriteLine(@"Your eyes slide over to the fireplace. On top of the mantle, resting easy, is your father's old hunting rifle.
 
 You could grab that instead.
 ");
 
-int takeRifle = 0;
-bool tookRifle = false;
 
-Console.WriteLine("1. “Bullets are better than a blade, I’ll take it.”");
-Console.Write("1. “No, I will stick with my ”");
-Console.WriteLine(selectedWeapon);
+
+Console.WriteLine("(1) “Bullets are better than a blade, I'll take it.”");
+Console.Write("(2). “No, I will stick with my ”");
+Console.WriteLine(selectedWeapon + "”");
 takeRifle = int.Parse(Console.ReadLine()!);
 
 if (takeRifle < 1 || takeRifle > 2)
@@ -465,38 +471,67 @@ Console.ForegroundColor = ConsoleColor.Green;
                                                                     
 
 Console.ResetColor();
-Console.Write("\n\nYou walk for a bit and stop where you know ");
-Console.ForegroundColor = ConsoleColor.DarkBlue;
-Console.Write("blueberries ");
+Console.WriteLine(@"
+
+The forest is dense and dark even in the light of day. 
+The trees are old and tall enough that they stop any light from penetrating through. 
+Not that there would be a lot of light to use as is, the day is gloomy and cold, but it's still visible 
+enough for you to navigate the path that cuts through the densely populated woods.
+The path is something your father cleared when your grandmother first moved into the woods. 
+It has obvious markers to make it easy to stay in it and to keep wildlife from easily crossing into it.
+");
+Console.ReadKey();
+Console.Write(@"On the edges of the dirt road there’s wild grass and bushes growing. 
+You travel down a good bit of the path now nearing the middle of the forest, everything around you sounds alive, 
+from twigs snapping to leaves rustling as deer and other forest creeters scamper around. 
+
+You are starting to get winded, and even worse you are starting to get bored when your eye catches 
+onto a");
+Console.ForegroundColor = ConsoleColor.Blue;
+Console.Write(" blueberry bush");
 Console.ResetColor();
-Console.Write("grow");
-Console.Write("\nYou also notice some ");
+Console.Write(" in a ring of ");
 Console.ForegroundColor = ConsoleColor.DarkRed;
 Console.Write("mysterious red mushrooms ");
 Console.ResetColor();
-Console.Write("ahead");
+Console.WriteLine("resting by a broken part of the path.");
+Console.WriteLine(@"Your grandmother always says to be careful of mushrooms forming a ring for…some reason.
 
-Console.WriteLine("\n\nYou know nothing about the mushrooms but they sure look yummy!");
-
-
+But the blueberries look so delicious and like just the thing that would help you get rid of the dreaded boredom. 
+In fact, the mushrooms also look like they could be a good bite. You do have to head to grandmother’s place though, 
+and it is starting to get dark…
+");
 
 Console.ReadKey();
 
 
 while (!hasChosenFoodFirst)
 {
-    Console.ForegroundColor = ConsoleColor.Cyan;
-    Console.WriteLine("Do you eat the blueberries(1), the red mushroom(2) or do you continue without eating(3)?");
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.WriteLine("(1) Eat a handful of blueberries.");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("(2) Take a cautious bite of one of the mushrooms, breaking the circle.");
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("(3) Continue on the way.");
     foodChoice = int.Parse(Console.ReadLine()!);    
     Console.Clear();
+    Console.ResetColor();
     switch (foodChoice)
 {
     case 1:
     playerHealth += 15;
     playerSpeed += 5;
     playerAccuracy += 5;
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("You feel more energiezed than before and your journey continues!");
+    Console.WriteLine(@"
+    You reach a hand out and grab a cluster of berries off the bush. 
+    You eat them all in one bite, juices and deliciousness bursting in your mouth.
+
+    Refreshing, you feel rejuvenated and ready for the road ahead once more. 
+    Another handful couldn’t hurt right?
+
+    But as you reach for another cluster, eager to taste them again, the bush rustles and 
+    you feel a heavy footfall land in front of you just outside your field of view.
+");
     Console.ReadKey();
     Console.Clear();
     hasChosenFoodFirst = true;
@@ -506,8 +541,17 @@ while (!hasChosenFoodFirst)
     playerHealth -= 15;
     playerSpeed -= 5;
     playerAccuracy -= 7;
-    Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("You feel.... not so good... That was probably a bad idea but you continue");
+    Console.WriteLine(@"
+    Not letting yourself think too hard about it you pluck out one of the mushrooms off the rong and pop it in your mouth.
+
+    The taste is…nothing of note, pretty bland actually.
+
+    Before you can be too disappointed though, you feel an immense wave of dizziness hit you, 
+    your head swims and you have to fight with yourself to stay upright.
+
+    Eating unknown mysterious red mushrooms, you can almost hear your mother sighing in 
+    exasperation. Not the smartest idea you’ve ever had.
+");
     hadMushroomsBefore = true;
     Console.ReadKey();
     Console.Clear();
@@ -515,8 +559,13 @@ while (!hasChosenFoodFirst)
     break;
 
     case 3:
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.WriteLine("You decide to not eat and continue your journey...");
+    Console.WriteLine(@"
+    Your mother’s stern voice plays in your head, no straying from the path. 
+    You need to get the food to your grandmother before it gets too dark to head back home after.
+
+    With your mind made up and your motivation renewed you turn to continue on your way 
+    only for you to freeze as movement becomes obvious behind you.
+");
     Console.ReadKey();
     Console.Clear();
     hasChosenFoodFirst = true;
