@@ -37,6 +37,7 @@ int dice= rnd.Next(1,100);
 bool showTips = false;
 string choice = "";
 bool hasChosenTip = false;
+int infoSleep = 30;
 // bool godMode = false;
 
 //Grandma var
@@ -101,10 +102,6 @@ bool northWestArea = false;
 bool pathArea = false;
 bool foundPath = false;
 
-
-int x = 0;
-int y = 0;
-int position = x+y;
 
 int takeRifle = 0;
 bool tookRifle = false;
@@ -245,6 +242,7 @@ ConsoleKeyInfo keyInfo;
 keyInfo = Console.ReadKey(true);
 
 
+
 void PlayerDeath() 
 {
     Console.Clear();
@@ -254,10 +252,70 @@ void PlayerDeath()
     Environment.Exit(0);
 }
 
+string TypeWrite(string text, int sleepTime, bool random)
+{
+    ConsoleColor[] cl = [
+        ConsoleColor.Cyan, 
+        ConsoleColor.Red,
+        ConsoleColor.Blue,
+        ConsoleColor.DarkBlue,
+        ConsoleColor.DarkCyan,
+        ConsoleColor.DarkGreen,
+        ConsoleColor.DarkMagenta,
+        ConsoleColor.DarkRed,
+        ConsoleColor.DarkYellow,
+        ConsoleColor.Green,
+        ConsoleColor.Magenta,
+        ConsoleColor.Yellow,
+        ConsoleColor.DarkRed,
+        ];
+    foreach (char c in text)
+    {
+        Thread.Sleep(sleepTime);
+        if (random)
+        {
+            Console.ForegroundColor =  cl[rnd.Next(cl.Length)];
+        }
+        Console.Write(c);
+    }
+    Console.ResetColor();
+    return text;
+}
+string TypeWriteLine(string text, int sleepTime, bool random)
+{
+    ConsoleColor[] cl = [
+        ConsoleColor.Cyan, 
+        ConsoleColor.Red,
+        ConsoleColor.Blue,
+        ConsoleColor.DarkBlue,
+        ConsoleColor.DarkCyan,
+        ConsoleColor.DarkGreen,
+        ConsoleColor.DarkMagenta,
+        ConsoleColor.DarkRed,
+        ConsoleColor.DarkYellow,
+        ConsoleColor.Green,
+        ConsoleColor.Magenta,
+        ConsoleColor.Yellow,
+        ConsoleColor.DarkRed,
+        ];
+    foreach (char c in text)
+    {
+        Thread.Sleep(sleepTime);
+        if (random)
+        {
+            Console.ForegroundColor =  cl[rnd.Next(cl.Length)];
+        }
+        Console.Write(c);
+    }
+    Console.Write("\n");
+    Console.ResetColor();
+    return text;
+}
 
 
 Console.Clear();
 Console.ForegroundColor = ConsoleColor.Red;
+
 
 
     Console.WriteLine(" _____  ______ _____");  
@@ -361,8 +419,8 @@ On the side of it, where the shoes usually go, is the");
     Console.WriteLine("your father used to chop wood with yesterday.");
     Console.ResetColor();
     Console.WriteLine("");
-    Console.WriteLine("(1) “Yeah, I'll grab a knife.”");
-    Console.WriteLine("(2) “I'll take dad's axe instead.”");
+    TypeWriteLine("(1) “Yeah, I'll grab a knife.”", infoSleep, false);
+    TypeWriteLine("(2) “I'll take dad's axe instead.”", infoSleep, false);
 
     beginningWeaponChoice = int.Parse(Console.ReadLine()!);
 
@@ -425,9 +483,9 @@ You could grab that instead.
 
 
 
-Console.WriteLine("(1) “Bullets are better than a blade, I'll take it.”");
-Console.Write("(2). “No, I will stick with my ”");
-Console.WriteLine(selectedWeapon + "”");
+TypeWriteLine("(1) “Bullets are better than a blade, I'll take it.”", infoSleep, false);
+TypeWrite("(2). “No, I will stick with my ", infoSleep, false);
+TypeWriteLine(selectedWeapon + "”", infoSleep, false);
 takeRifle = int.Parse(Console.ReadLine()!);
 
 if (takeRifle < 1 || takeRifle > 2)
@@ -475,15 +533,17 @@ Console.WriteLine(@"
 
 The forest is dense and dark even in the light of day. 
 The trees are old and tall enough that they stop any light from penetrating through. 
-Not that there would be a lot of light to use as is, the day is gloomy and cold, but it's still visible 
-enough for you to navigate the path that cuts through the densely populated woods.
-The path is something your father cleared when your grandmother first moved into the woods. 
-It has obvious markers to make it easy to stay in it and to keep wildlife from easily crossing into it.
+Not that there would be a lot of light to use as is, the day is gloomy and cold, 
+but it's still visible enough for you to navigate the path that cuts through the 
+densely populated woods. The path is something your father cleared when your grandmother 
+first moved into the woods. It has obvious markers to make it easy to stay in it and to keep 
+wildlife from easily crossing into it.
 ");
 Console.ReadKey();
 Console.Write(@"On the edges of the dirt road there’s wild grass and bushes growing. 
-You travel down a good bit of the path now nearing the middle of the forest, everything around you sounds alive, 
-from twigs snapping to leaves rustling as deer and other forest creeters scamper around. 
+You travel down a good bit of the path now nearing the middle of the forest, 
+everything around you sounds alive, from twigs snapping to leaves rustling as deer and 
+other forest creeters scamper around. 
 
 You are starting to get winded, and even worse you are starting to get bored when your eye catches 
 onto a");
@@ -498,12 +558,89 @@ Console.WriteLine("resting by a broken part of the path.");
 Console.WriteLine(@"Your grandmother always says to be careful of mushrooms forming a ring for…some reason.
 
 But the blueberries look so delicious and like just the thing that would help you get rid of the dreaded boredom. 
-In fact, the mushrooms also look like they could be a good bite. You do have to head to grandmother’s place though, 
+In fact, the mushrooms also look like they could be a good bite. You do have to head to grandmother's place though, 
 and it is starting to get dark…
 ");
 
 Console.ReadKey();
 
+void BlueOrContinue()
+{
+    hasChosenFoodFirst = true;
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.Write("“Good morning, Little Red Riding Hood,”");
+    Console.ResetColor();
+    Console.WriteLine(" says a low rumbly voice from the darkness in front of you.");
+    Console.WriteLine("");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.Write("“Good morning..“");
+    Console.ResetColor();
+    Console.WriteLine(" you greet back, weary already.");
+    Console.WriteLine("");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.Write("“Where are you going so early?”");
+    Console.ResetColor();
+    Console.WriteLine(" he asks.");
+    Console.WriteLine("");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("“...To my grandmother's house,”");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.WriteLine("");
+    Console.WriteLine("“And what's that in your basket?”");
+    Console.ResetColor();
+    Console.WriteLine("");
+    Console.WriteLine(@"You are starting to feel uncomfortable, but that is no reason for you to be rude. 
+Your mother always says as much.");
+    Console.ReadKey();
+    Console.WriteLine("");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine(@"“Some food for her, there's heavy snowfall coming and she is going 
+to need the food if she is to make it through.“
+");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.Write("“And where does your grandmother live?”");
+    Console.ResetColor();
+    Console.WriteLine(@" asks what you can now see is a massive beast of a wolf. 
+Its eyes are golden and have a mean glint to them.");
+    Console.WriteLine("");
+    Console.Write("You shift from one foot to the other, ");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine(@"“A little farther into the woods
+—under the three great oak trees, near the hazel bushes...”");
+    Console.WriteLine("");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.Write("""I see.""");
+    Console.ResetColor();
+    Console.WriteLine(" the wolf says and you can make out how his legs tense, he looks ready to pounce."); 
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.ReadKey();
+    Console.WriteLine("“That means that no one will think to look for you for quite some time, yes?”");
+    Console.WriteLine("");
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.Write("“I should get going.“");
+    Console.ResetColor();
+    Console.WriteLine(@" you say then, abruptly and so rude your mother would give you a pinch. 
+But the questions have been making you uncomfortable for a while and you do not like 
+the mean glint in the wolf's eyes, or the way his lips are pulled back to show off 
+his teeth");
+    Console.WriteLine("");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.Write("“If that's what you'd like,“ ");
+    Console.ResetColor();
+    Console.Write("the wolf agrees, thankfully, ");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.WriteLine("“Then go on ahead.“");
+    Console.ResetColor();
+    Console.WriteLine("");
+    Console.WriteLine(@"You don't reply to him anymore as you turn to continue on your way, your back to him. 
+But then a shiver runs down your spine as you hear him shift and move. You turn around just in time, dread 
+filling you as you hear his deep growl and see him leap at you in a rush.
+");
+    Console.ReadKey();
+    Console.WriteLine("You scream");
+    Console.ReadKey();
+}
 
 while (!hasChosenFoodFirst)
 {
@@ -527,14 +664,14 @@ while (!hasChosenFoodFirst)
     You eat them all in one bite, juices and deliciousness bursting in your mouth.
 
     Refreshing, you feel rejuvenated and ready for the road ahead once more. 
-    Another handful couldn’t hurt right?
+    Another handful couldn't hurt right?
 
     But as you reach for another cluster, eager to taste them again, the bush rustles and 
     you feel a heavy footfall land in front of you just outside your field of view.
 ");
     Console.ReadKey();
     Console.Clear();
-    hasChosenFoodFirst = true;
+    BlueOrContinue();
     break;
 
     case 2:
@@ -550,7 +687,7 @@ while (!hasChosenFoodFirst)
     your head swims and you have to fight with yourself to stay upright.
 
     Eating unknown mysterious red mushrooms, you can almost hear your mother sighing in 
-    exasperation. Not the smartest idea you’ve ever had.
+    exasperation. Not the smartest idea you've ever had.
 ");
     hadMushroomsBefore = true;
     Console.ReadKey();
@@ -560,7 +697,7 @@ while (!hasChosenFoodFirst)
 
     case 3:
     Console.WriteLine(@"
-    Your mother’s stern voice plays in your head, no straying from the path. 
+    Your mother's stern voice plays in your head, no straying from the path. 
     You need to get the food to your grandmother before it gets too dark to head back home after.
 
     With your mind made up and your motivation renewed you turn to continue on your way 
@@ -568,7 +705,7 @@ while (!hasChosenFoodFirst)
 ");
     Console.ReadKey();
     Console.Clear();
-    hasChosenFoodFirst = true;
+    BlueOrContinue();
     break;
 
     default:
@@ -576,6 +713,8 @@ while (!hasChosenFoodFirst)
     break;
 }
 }
+
+
 
 //--WOLF ENCOUNTER - FIGHT--//
                                                                     
