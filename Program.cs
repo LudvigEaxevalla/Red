@@ -454,9 +454,52 @@ On the side of it, where the shoes usually go, is the", textTime, false);
     TypeWriteLine("(1) “Yeah, I'll grab a knife.”", textTime, false);
     TypeWriteLine("(2) “I'll take dad's axe instead.”", textTime, false);
 
-    beginningWeaponChoice = int.Parse(Console.ReadLine()!);
+    //beginningWeaponChoice = int.Parse(Console.ReadLine()!);
+    if (!int.TryParse(Console.ReadLine(), out beginningWeaponChoice))
+    {
+        Console.WriteLine("Invalid Entry");
+        continue;
+    }
+        switch (beginningWeaponChoice)
+        {
+            case 1:
+                selectedWeapon = currentWeapon[0];
+                pMinDamage += knifeDamage;
+                pMaxDamage += knifeDamage;
+                playerWeight += knifeWeight;
+                playerAccuracy += 10;
+                //playerSpeed -= playerWeight;
+                hasChosenbeginningWeapon = true;
+                TypeWriteLine("\nAs you come to a decision, the knife feels secure in your hand", textTime, false);
+                Console.ReadKey();
+            break;
 
+            case 2:
+                selectedWeapon = currentWeapon[1];
+                pMinDamage += axeDamage;
+                pMaxDamage += axeDamage;
+                playerWeight += axeWeight;
+                playerAccuracy -= 5;
+                //playerSpeed -= playerWeight;
+                hasChosenbeginningWeapon = true;
+                TypeWriteLine("\nAs you come to a decision, the axe is heavy but sturdy in your grip, though you have to use both hands for it.", textTime, false);
+                Console.ReadKey();
+            break;
 
+            case 1337:
+                selectedWeapon = currentWeapon[3];
+                pMinDamage += ak47Damage;
+                pMaxDamage += ak47Damage;
+                playerAccuracy = 100;
+                hasChosenbeginningWeapon = true;
+                runningOdds = 101;
+            break;
+
+            default:
+                Console.WriteLine("You can only choose between (1) and (2). Try again");
+            break;
+        }
+/*
 if (beginningWeaponChoice == 1337)
     {
         selectedWeapon = currentWeapon[3];
@@ -499,8 +542,8 @@ else if (beginningWeaponChoice == 2)
     Console.ReadKey();
 }
 
+ */
 }
-
 /*Console.WriteLine(playerDamage);
 Console.WriteLine(playerWeight);
 Console.WriteLine(playerSpeed);
