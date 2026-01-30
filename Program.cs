@@ -41,6 +41,7 @@ string typeChoice = "";
 bool hasChosenTip = false;
 int speakTime = 40;
 int textTime = 20;
+int titleTime = 2;
 // bool godMode = false;
 
 //Grandma var
@@ -321,12 +322,15 @@ Console.ForegroundColor = ConsoleColor.Red;
 
 
 
-    Console.WriteLine(" _____  ______ _____");  
-    Console.WriteLine("|  __ \\|  ____|  __ \\"); 
-    Console.WriteLine("| |__) | |__  | |  | |");
-    Console.WriteLine("|  _  /|  __| | |  | |");
-    Console.WriteLine("| | \\ \\| |____| |__| |");
-    Console.WriteLine("|_|  \\_\\______|_____/ ");
+    TypeWriteLine(@"   
+  _____  ______ _____  
+ |  __ \|  ____|  __ \ 
+ | |__) | |__  | |  | |
+ |  _  /|  __| | |  | |
+ | | \ \| |____| |__| |
+ |_|  \_\______|_____/ 
+                       
+                       ", titleTime, false);
 
 Console.WriteLine("\nA text adventure game");
 Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -595,12 +599,13 @@ runningOdds -= playerWeight;
 Console.Clear();
 //--FOREST PART 1--//
 Console.ForegroundColor = ConsoleColor.Green;
- Console.WriteLine(" _______ _    _ ______   ______ ____  _____  ______  _____ _______");
- Console.WriteLine("|__   __| |  | |  ____| |  ____/ __ \\|  __ \\|  ____|/ ____|__   __|");
- Console.WriteLine("   | |  | |__| | |__    | |__ | |  | | |__) | |__  | (___    | | ");  
- Console.WriteLine("   | |  |  __  |  __|   |  __|| |  | |  _  /|  __|  \\___ \\   | | ");  
- Console.WriteLine("   | |  | |  | | |____  | |   | |__| | | \\ \\| |____ ____) |  | |  ");  
- Console.WriteLine("   |_|  |_|  |_|______| |_|    \\____/|_|  \\_\\______|_____/   |_| ");   
+ TypeWriteLine(@"   
+  _______ _    _ ______   ______ ____  _____  ______  _____ _______ 
+ |__   __| |  | |  ____| |  ____/ __ \|  __ \|  ____|/ ____|__   __|
+    | |  | |__| | |__    | |__ | |  | | |__) | |__  | (___    | |   
+    | |  |  __  |  __|   |  __|| |  | |  _  /|  __|  \___ \   | |   
+    | |  | |  | | |____  | |   | |__| | | \ \| |____ ____) |  | |   
+    |_|  |_|  |_|______| |_|    \____/|_|  \_\______|_____/   |_|", titleTime, false);   
                                                                     
 
 Console.ResetColor();
@@ -730,6 +735,7 @@ filling you as you hear his deep growl and see him leap at you in a rush.
 void MushroomOption()
 {
     hasChosenFoodFirst = true;
+    hadMushroomsBefore = true;
     Console.Clear();
     Console.ForegroundColor = ConsoleColor.DarkGray;
     TypeWrite("“Good morning, Little Red Riding Hood,”", speakTime, false);
@@ -933,17 +939,23 @@ while (battle)
         
     }
 
-    else
+    if (!hadMushroomsBefore)
     {
         Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("The battle begins");
+        TypeWriteLine("If you see this, you did not eat the mushrooms", textTime, false);
         Console.ReadKey();
         Console.Clear();
     }
+
+    else if (hadMushroomsBefore)
+    {
+        Console.Clear();
+        TypeWriteLine("If you see this, you ate the mushrooms", textTime, true);
+        Console.ReadKey();
+        Console.Clear();
+    }
+
     
-
-
     if (!playersTurn && !wolfsTurn)
     {
         playersTurn = true;
