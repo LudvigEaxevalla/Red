@@ -913,6 +913,7 @@ while (battle)
     {
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("--- INFO ---\n");
         Console.WriteLine("You always have the first turn in battle and you have one of two options each turn. ");
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("\n1. Attack the wolf with the weapon you chose at the beginning of the game.");
@@ -929,6 +930,7 @@ while (battle)
         Console.WriteLine("\n");
         Console.ReadKey();
         Console.Clear();
+        Console.WriteLine("--- INFO ---\n");
         Console.WriteLine("The wolf only has one move: Attack");
         Console.WriteLine("The wolf is less likely to hit you than you are to hit him, however:");
         Console.WriteLine("If the wolf does hit you, your chances of running away decreses and the wolfs chance of hitting you next time slightly increses.\n");
@@ -942,7 +944,25 @@ while (battle)
     if (!hadMushroomsBefore)
     {
         Console.Clear();
-        TypeWriteLine("If you see this, you did not eat the mushrooms", textTime, false);
+        Console.ResetColor();
+        TypeWrite(@"
+You barely manage to stumble enough steps away from where the giant beast lands. 
+Right where you used to stand.
+
+Everything freezes. The only sounds in the space are your panicked breathing and the big black wolf's 
+pants as it looks at you with hungry eyes.
+
+Without taking your eyes away from it you reach into the basket and grab your ", textTime, false);
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        TypeWrite(selectedWeapon + ". ", textTime, false);
+        TypeWrite(@"
+Your hands are shaking but as you look around and the sinking realization that the beast in front of you 
+is faster and stronger than you, too fast for you to outrun, you stand your ground.
+
+The only way to gain yourself an advantage is to slow the wolf down enough for you to be able to run away.
+
+The wolf starts circling you, you make sure your grip on your weapon is steady.
+You…", textTime, false);
         Console.ReadKey();
         Console.Clear();
     }
@@ -950,7 +970,31 @@ while (battle)
     else if (hadMushroomsBefore)
     {
         Console.Clear();
-        TypeWriteLine("If you see this, you ate the mushrooms", textTime, true);
+        Console.ResetColor();
+        TypeWrite(@"The wolf leaps at you, despite the world spinning you manage to roll away just in time 
+and its claws just graze the skin of your leg. It burns, you are so scared.
+
+The only sounds in the space are your panicked breathing and the big black wolf's pants as it looks at you with hungry eyes.
+
+You crawl away from it while still looking at it. Just to put more room between you two. 
+The beast stalks forwards and closes the distance with ease.
+
+Chin trembling, disoriented and feeling sick to the stomach you force yourself to become steady. 
+You push yourself up on unsteady feet.
+
+Without taking your eyes away from it you reach into the basket and grab your ", textTime, false);
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        TypeWrite(selectedWeapon + ".", textTime, false);
+        Console.ResetColor();
+        TypeWrite(@"
+Your hands are shaking but as you look around and the sinking realization that the beast in front of you is faster 
+and stronger than you, too fast for you to outrun, you stand your ground.
+
+The only way to gain yourself an advantage is to slow the wolf down enough for you to be able to run away.
+
+The wolf starts circling you, you make sure your grip on your weapon is steady.
+
+Tearfully you…", textTime, false);
         Console.ReadKey();
         Console.Clear();
     }
@@ -965,7 +1009,7 @@ while (battle)
 
     {
 
-            if (playerHealth <= 0)
+        if (playerHealth <= 0)
         {
             playerDeath = true;
         }
@@ -1519,7 +1563,7 @@ void Mushrooms()
                 break;
 
                 //Go East
-                case ConsoleKey.UpArrow:
+                case ConsoleKey.RightArrow:
                     northEastArea = true;
                     currentMap = mapNorthEast;
                     playerHealth -= healthDecay;
