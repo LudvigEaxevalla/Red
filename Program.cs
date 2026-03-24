@@ -259,19 +259,19 @@ void PlayerDeath()
 string TypeWrite(string text, int sleepTime, bool random)
 {
     ConsoleColor[] cl = [
-       //ConsoleColor.Cyan, 
         ConsoleColor.Red,
-        //ConsoleColor.Blue,
         ConsoleColor.DarkBlue,
         ConsoleColor.DarkCyan,
+        ConsoleColor.DarkRed,
+        ConsoleColor.DarkRed,
+       //ConsoleColor.Cyan, 
+        //ConsoleColor.Blue,
         //ConsoleColor.DarkGreen,
         //ConsoleColor.DarkMagenta,
-        ConsoleColor.DarkRed,
         //ConsoleColor.DarkYellow,
         //ConsoleColor.Green,
         //ConsoleColor.Magenta,
         //ConsoleColor.Yellow,
-        ConsoleColor.DarkRed,
         ];
     foreach (char c in text)
     {
@@ -1282,7 +1282,7 @@ else
     bool blueberryDecision = false;
     bool appleDecision = false;
     int healthDecay = 6;
-    int appleDecay = 15;
+    int appleDecay = 10;
     int appleChance = 25;
     int mushroomChance = 50;
     int blueberryChance = 50;
